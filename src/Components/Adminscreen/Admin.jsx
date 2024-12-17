@@ -113,8 +113,9 @@ const Admin = () => {
                 </ListItemIcon>
                 <ListItemText primary="Headers" />
               </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
+            </ListItem>'
+            
+            <ListItem disablePadding>    
               <ListItemButton component={Link} to="/admin/about">
                 <ListItemIcon className="icon">
                   <FaBookReader />
