@@ -2,17 +2,15 @@ import React, { useState } from 'react';
 import SuccessPopup from './Successpop';
 import FailurePopup from './Failurepop';
 import styled from 'styled-components';
-import { TextField, TextareaAutosize, Grid, Button } from '@mui/material';
+import { TextField,  Grid,  } from '@mui/material';
 
-export default function Cardss() {
-    const [successOpen, setSuccessOpen] = useState(false);
-    const [failureOpen, setFailureOpen] = useState(false);
-  
+export default function Socialmedia() {
+        const [successOpen, setSuccessOpen] = useState(false);
+        const [failureOpen, setFailureOpen] = useState(false);
     const [formData, setFormData] = React.useState({
         subtitle: '',
         title: '',
-        para: '',
-        image: null,
+        youtubelink: "",
       });
     
       const handleFormChange = (e) => {
@@ -23,21 +21,12 @@ export default function Cardss() {
         }));
       };
     
-      const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        setFormData((prev) => ({
-          ...prev,
-          image: file,
-        }));
-      };
-    
       const handleSubmit = (e) => {
         e.preventDefault();
     
-        // Check if required fields are filled
-        const { title, subtitle, para, image } = formData;
+        const { title, subtitle, youtubelink } = formData;
     
-        if (title && subtitle && para && image) {
+        if (title && subtitle && youtubelink) {
           console.log('Form submitted successfully:', formData);
           setSuccessOpen(true); // Show success popup
         } else {
@@ -51,7 +40,7 @@ export default function Cardss() {
         setSuccessOpen(false);
         setFailureOpen(false);
       };
-
+    
   return (
    <AdminContentPart>
          <Grid container spacing={3}>
@@ -80,35 +69,18 @@ export default function Cardss() {
                      required
                    />
                   </Grid>
-                 
-                    <Grid item md={12} xs={12}>
-                   <TextareaAutosize
-                     className="my-3"
-                     minRows={6}
-                     placeholder="Enter Paragraph"
-                     name="para"
-                     value={formData.para}
-                     onChange={handleFormChange}
-                     style={{
-                       width: '100%',
-                       padding: '10px',
-                       fontSize: '16px',
-                       border: '1px solid #ccc',
-                       borderRadius: '4px',
-                       background: "#f3f3f3",
-                     }}
-                   />
-                 </Grid>
-                 <Grid item md={12} xs={12}>
-                   <TextField
+                  <Grid item md={12} xs={12}>
+                  <TextField
                      className="my-3"
                      fullWidth
-                     name="image"
-                     type="file"
-                     onChange={handleImageChange}
+                     label="Enter Yutube Link"
+                     name="youtubelink"
+                     value={formData.youtubelink}
+                     onChange={handleFormChange}
                      required
                    />
-                 </Grid>
+                  </Grid>
+                 
                </Grid>
                <Grid container justifyContent="flex-start" className="my-5">
                  <Grid item>
@@ -118,7 +90,7 @@ export default function Cardss() {
              </form>
            </Grid>
          </Grid>
-          {/* Success and Failure Popups */}
+              {/* Success and Failure Popups */}
       <SuccessPopup
         open={successOpen}
         message="Form submitted successfully!"
@@ -151,6 +123,6 @@ color: #fff;
     transition: all 0.5s ease-in-out;
 
   &:hover {
-     background-color: #013396;
+ background-color: #013396;
   }
 `;

@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react';
+import SuccessPopup from './Successpop';
+import FailurePopup from './Failurepop';
 import styled from 'styled-components';
 import { TextField, TextareaAutosize, Grid, Button } from '@mui/material';
 
 export default function Aboutss() {
+      const [successOpen, setSuccessOpen] = useState(false);
+      const [failureOpen, setFailureOpen] = useState(false);
      const [formData, setFormData] = React.useState({
             title: '',
             para: '',
@@ -26,8 +30,24 @@ export default function Aboutss() {
         
           const handleSubmit = (e) => {
             e.preventDefault();
-            console.log('Form submitted:', formData);
+        
+            const { title, para,  } = formData;
+        
+            if (title && para ) {
+              console.log('Form submitted successfully:', formData);
+              setSuccessOpen(true); // Show success popup
+            } else {
+              console.log('Form submission failed: Missing fields');
+              setFailureOpen(true); // Show failure popup
+            }
           };
+        
+          // Close popups
+          const handleClose = () => {
+            setSuccessOpen(false);
+            setFailureOpen(false);
+          };
+        
   return (
     <AdminContentPart>
     <Grid container spacing={3}>
@@ -72,6 +92,17 @@ export default function Aboutss() {
         </form>
       </Grid>
     </Grid>
+         {/* Success and Failure Popups */}
+         <SuccessPopup
+        open={successOpen}
+        message="Form submitted successfully!"
+        onClose={handleClose}
+      />
+      <FailurePopup
+        open={failureOpen}
+        message="Form submission failed. Please fill all required fields."
+        onClose={handleClose}
+      />
   </AdminContentPart>
   )
 }

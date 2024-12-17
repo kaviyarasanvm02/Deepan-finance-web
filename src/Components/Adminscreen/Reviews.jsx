@@ -2,17 +2,13 @@ import React, { useState } from 'react';
 import SuccessPopup from './Successpop';
 import FailurePopup from './Failurepop';
 import styled from 'styled-components';
-import { TextField, TextareaAutosize, Grid, Button } from '@mui/material';
+import {  TextareaAutosize, Grid,  } from '@mui/material';
 
-export default function Cardss() {
-    const [successOpen, setSuccessOpen] = useState(false);
-    const [failureOpen, setFailureOpen] = useState(false);
-  
+export default function Reviews() {
+        const [successOpen, setSuccessOpen] = useState(false);
+        const [failureOpen, setFailureOpen] = useState(false);
     const [formData, setFormData] = React.useState({
-        subtitle: '',
-        title: '',
         para: '',
-        image: null,
       });
     
       const handleFormChange = (e) => {
@@ -23,21 +19,13 @@ export default function Cardss() {
         }));
       };
     
-      const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        setFormData((prev) => ({
-          ...prev,
-          image: file,
-        }));
-      };
     
       const handleSubmit = (e) => {
         e.preventDefault();
     
-        // Check if required fields are filled
         const { title, subtitle, para, image } = formData;
     
-        if (title && subtitle && para && image) {
+        if (  para ) {
           console.log('Form submitted successfully:', formData);
           setSuccessOpen(true); // Show success popup
         } else {
@@ -51,36 +39,13 @@ export default function Cardss() {
         setSuccessOpen(false);
         setFailureOpen(false);
       };
-
+    
   return (
    <AdminContentPart>
          <Grid container spacing={3}>
            <Grid item xs={12}>
              <form onSubmit={handleSubmit}>
                <Grid container spacing={2}>
-               <Grid item md={12} xs={12}>
-                   <TextField
-                     className="my-3"
-                     fullWidth
-                     label="Enter Title"
-                     name="title"
-                     value={formData.title}
-                     onChange={handleFormChange}
-                     required
-                   />
-                     </Grid>
-                 <Grid item md={12} xs={12}>
-                   <TextField
-                     className="my-3"
-                     fullWidth
-                     label="Enter Subtitle"
-                     name="subtitle"
-                     value={formData.subtitle}
-                     onChange={handleFormChange}
-                     required
-                   />
-                  </Grid>
-                 
                     <Grid item md={12} xs={12}>
                    <TextareaAutosize
                      className="my-3"
@@ -99,16 +64,6 @@ export default function Cardss() {
                      }}
                    />
                  </Grid>
-                 <Grid item md={12} xs={12}>
-                   <TextField
-                     className="my-3"
-                     fullWidth
-                     name="image"
-                     type="file"
-                     onChange={handleImageChange}
-                     required
-                   />
-                 </Grid>
                </Grid>
                <Grid container justifyContent="flex-start" className="my-5">
                  <Grid item>
@@ -118,7 +73,7 @@ export default function Cardss() {
              </form>
            </Grid>
          </Grid>
-          {/* Success and Failure Popups */}
+              {/* Success and Failure Popups */}
       <SuccessPopup
         open={successOpen}
         message="Form submitted successfully!"

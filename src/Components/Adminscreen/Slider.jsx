@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { TextField, TextareaAutosize, Grid, Button } from '@mui/material';
+import { TextField, TextareaAutosize, Grid } from '@mui/material';
+import SuccessPopup from './Successpop';
+import FailurePopup from './Failurepop';
 
 export default function Slider() {
-  const [formData, setFormData] = React.useState({
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [failureOpen, setFailureOpen] = useState(false);
+
+
+  const [formData, setFormData] = useState({
     subtitle: '',
     title: '',
     para: '',
@@ -11,13 +17,14 @@ export default function Slider() {
   });
 
   const handleFormChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: value,
     }));
   };
 
+  // Handle image change
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFormData((prev) => ({
@@ -26,9 +33,25 @@ export default function Slider() {
     }));
   };
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+
+    const { title, subtitle, para, image } = formData;
+
+    if (title && subtitle && para && image) {
+      console.log('Form submitted successfully:', formData);
+      setSuccessOpen(true); // Show success popup
+    } else {
+      console.log('Form submission failed: Missing fields');
+      setFailureOpen(true); // Show failure popup
+    }
+  };
+
+  // Close popups
+  const handleClose = () => {
+    setSuccessOpen(false);
+    setFailureOpen(false);
   };
 
   return (
@@ -41,9 +64,9 @@ export default function Slider() {
                 <TextField
                   className="my-3"
                   fullWidth
-                  label="Enter Subtitle"
-                  name="subtitle"
-                  value={formData.subtitle}
+                  label="Enter Title"
+                  name="title"
+                  value={formData.title}
                   onChange={handleFormChange}
                   required
                 />
@@ -52,13 +75,13 @@ export default function Slider() {
                 <TextField
                   className="my-3"
                   fullWidth
-                  label="Enter Title"
-                  name="title"
-                  value={formData.title}
+                  label="Enter Subtitle"
+                  name="subtitle"
+                  value={formData.subtitle}
                   onChange={handleFormChange}
                   required
                 />
-               </Grid>
+              </Grid>
               <Grid item md={12} xs={12}>
                 <TextareaAutosize
                   className="my-3"
@@ -73,7 +96,7 @@ export default function Slider() {
                     fontSize: '16px',
                     border: '1px solid #ccc',
                     borderRadius: '4px',
-                    background: "#f3f3f3",
+                    background: '#f3f3f3',
                   }}
                 />
               </Grid>
@@ -96,6 +119,18 @@ export default function Slider() {
           </form>
         </Grid>
       </Grid>
+
+      {/* Success and Failure Popups */}
+      <SuccessPopup
+        open={successOpen}
+        message="Form submitted successfully!"
+        onClose={handleClose}
+      />
+      <FailurePopup
+        open={failureOpen}
+        message="Form submission failed. Please fill all required fields."
+        onClose={handleClose}
+      />
     </AdminContentPart>
   );
 }
@@ -103,23 +138,22 @@ export default function Slider() {
 const AdminContentPart = styled.div`
   background-color: #f3f3f3;
   padding: 30px 15px;
-  height: 600px;
 `;
 
 const SubmitButton = styled.button`
-color: #fff;
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 10px 10px;
-    border: 1px solid;
-    margin: 10px 15px;
-    text-align: center;
-    width: 10rem;
-    cursor: pointer;
-    background:rgb(225, 35, 35);
-    transition: all 0.5s ease-in-out;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 10px 10px;
+  border: 1px solid;
+  margin: 10px 15px;
+  text-align: center;
+  width: 10rem;
+  cursor: pointer;
+  background: rgb(225, 35, 35);
+  transition: all 0.5s ease-in-out;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #013396;
   }
 `;

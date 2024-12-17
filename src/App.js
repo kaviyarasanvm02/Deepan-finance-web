@@ -19,6 +19,9 @@ import Loginform from "./Components/Adminscreen/LoginForm";
 import Slider from "./Components/Adminscreen/Slider";
 import Cardss from "./Components/Adminscreen/Card";
 import Aboutss from "./Components/Adminscreen/About";
+import Joiner from "./Components/Adminscreen/Joiner";
+import Reviewss from "./Components/Adminscreen/Reviews";
+import Socialmedia from "./Components/Adminscreen/Socialmedia";
 
 export default function App() {
   return (
@@ -52,6 +55,9 @@ export default function App() {
           <Route path="slider" element={<Slider />} />
           <Route path="card" element={<Cardss />} />
           <Route path="about" element={<Aboutss />} />
+          <Route path="joiner" element={<Joiner />} />
+          <Route path="reviews" element={<Reviewss />} />
+          <Route path="socialmedia" element={<Socialmedia />} />
         </Route>
       </Routes>
     </>
