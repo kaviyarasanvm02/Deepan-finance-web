@@ -36,7 +36,7 @@ const MediaContent = () => {
   };
 
   return (
-    <Maindiv>
+    <Maindiv id='latestnews'>
     <Box
       sx={{
         display: "flex",

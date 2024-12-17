@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaChevronRight } from "react-icons/fa";
+// import { FaChevronRight } from "react-icons/fa";
 
 export default function Tabcontentbox({ title, description }) {
   return (
@@ -8,7 +8,7 @@ export default function Tabcontentbox({ title, description }) {
         <Tabbox>
             <Boxtitle >{title}</Boxtitle>
             <Boxpara>{description}</Boxpara>
-            <Boxicon><FaChevronRight /></Boxicon>
+            {/* <Boxicon><FaChevronRight /></Boxicon> */}
           </Tabbox>
     </Maindiv>
   );
@@ -21,7 +21,7 @@ const Tabbox = styled.div`
   margin: 15px 0;
   cursor: pointer;
   transition: all 0.8s ease;
-  height: 300px;
+  height: 200px;
   position: relative;
   &:hover {
     color: #013396;

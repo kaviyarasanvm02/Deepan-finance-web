@@ -1,20 +1,25 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Tabscontent from "./Components/Tobs/Tabssection";
-import Cardpart from "./Components/Cards/Cardpart";
-import Joiningpart from "./Components/Joining/Joiningpart";
-import Contact from "./Components/Formpart/Contact";
-import Footer from "./Components/Footer/Footer";
-import Home from "./Components/LandingScreen/Home";
-import About from "./Components/LandingScreen/About";
-import MediaContent from "./Components/LandingScreen/MediaContent";
-import Reviews from "./Components/LandingScreen/Reviews";
 import Header from "./Components/Header/Header";
-import LogoSlider from "./Components/LandingScreen/Clientlogs";
-import Admin from "./Adminscreen/Admin";
-import Slider from "./Adminscreen/Slider";
-import Cardss from "./Adminscreen/Card";
-import Aboutss from "./Adminscreen/About";
+import Footer from "./Components/Footer/Footer";
+ /* Home Pages Components*/
+import Home from "./Components/LandingScreen/Slider/Slider";
+import LogoSlider from "./Components/LandingScreen/Clientlogo/Clientlogs";
+import About from "./Components/LandingScreen/About/About";
+import Tabscontent from "./Components/LandingScreen/Tobs/Tabssection";
+import Cardpart from "./Components/LandingScreen/Cards/Cardpart"
+import Joiningpart from "./Components/LandingScreen/Joining/Joiningpart"
+import MediaContent from "./Components/LandingScreen/Latestnews/MediaContent";
+import Reviews from "./Components/LandingScreen/Review/Reviews";
+import Contact from "./Components/LandingScreen/Formpart/Contact"
+
+/* Admin Site Components*/
+import Admin from "./Components/Adminscreen/Admin";
+import Slider from "./Components/Adminscreen/Slider";
+import Cardss from "./Components/Adminscreen/Card";
+import Aboutss from "./Components/Adminscreen/About"
+
+
 export default function App() {
   return (
     <>

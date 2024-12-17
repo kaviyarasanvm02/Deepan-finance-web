@@ -6,16 +6,15 @@ import { Container, Row, Col } from "react-bootstrap";
 const About = ({ content = [] }) => {
   const text = [
     {
-      title: "Your trusted partner in investments,  and financial planning.,",
+      title: "Your trusted partner in investments,",
       description: `
-        Ultra high net-worth individuals in India growing at 12% CAGR: Motilal Oswal. India's HNWI and UHNWI population is booming, with a 12% annual growth rate fueled by a strong economy and equity markets. However, organized wealth management penetration remains low, creating opportunities for expansion.
-        Ultra high net-worth individuals in India growing at 12% CAGR: Motilal Oswal. India's HNWI and UHNWI population is booming, with a 12% annual growth rate fueled by a strong economy and equity markets. However, organized wealth management penetration remains low, creating opportunities for expansion..
+       Deepan India Financial Services Pvt Ltd was founded in 2024, by a team led by Mr. S Raja , with a passion to provide investment cum trading solutions in Indian financial markets. Our mission is to create wealth for our investors through the right technology, research, knowledge & ethics. With 24+ years of trust & experience, we are the most reputed advisory services company in North Chennai providing all kinds of financial services which includes investing, trading, mutual funds, research, training etc. 
       `,
     },
   ];
  
   return (
-    <Maindiv>
+    <Maindiv id="About">
         <Container>
         <Row>
             <Col md={12}>

@@ -4,7 +4,6 @@ import { TextField, TextareaAutosize, Radio, RadioGroup, FormControlLabel, FormC
 import { IoIosRefresh } from 'react-icons/io';
 import { GiSpeaker } from 'react-icons/gi';
 import { Container,Row,Col } from 'react-bootstrap';
-import Cardimg1 from '../../assets/slider-img3.jpg'
 export default function Contact() {
   const [formData, setFormData] = useState({
     fullname: '',
@@ -70,7 +69,7 @@ export default function Contact() {
   };
 
   return (
-    <MainDiv>
+    <MainDiv id='contact'>
         <Container>
             <Row>
                 <Col md={12}>

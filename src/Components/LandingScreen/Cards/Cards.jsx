@@ -23,7 +23,9 @@ export default function Cards({cardImg, cardTitle, cardText}) {
  const Mycard = styled.div`
  margin: 15px 0;
 
-
+  Img{
+    height: 250px;
+  }
  .card-bordy
  {position: relative;
   padding: 20px;

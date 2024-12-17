@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Container, Row, Col } from 'react-bootstrap'
-import Cardimg1 from '../../assets/landingImage3.jpg'
+import Cardimg1 from '../../../assets/landingImage3.jpg'
 
 export default function Joiningpart() {
   return (
-    <Maindiv>
+    <Maindiv id='investor'>
 
         <Container>
             <Row>

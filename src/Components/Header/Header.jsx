@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Header.css';
 import styled from 'styled-components';
-import Deepalogo from "../../assets/logos/logo-deepan.png";
+import Deepalogo from "../../assets/logos/logo-deepan1.png";
 import Container from "react-bootstrap/Container";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -34,15 +34,15 @@ export default function Header() {
             <Topmenuitem>
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto d-flex align-items-center">
-              <Nav.Link href="#news">Who We Are</Nav.Link>
-              <Nav.Link href="#news">Profile</Nav.Link>
+              <Nav.Link href="#About">Who We Are</Nav.Link>
+              <Nav.Link href="#card">Profile</Nav.Link>
                 {/* <NavDropdown title="Who We Are" id="basic-nav-dropdown">
                   <NavDropdown.Item href="#about">Company history</NavDropdown.Item>
                   <NavDropdown.Item href="#leadership">Mission and vision</NavDropdown.Item>
                   <NavDropdown.Item href="#responsibility">Leadership team profiles</NavDropdown.Item>
                 </NavDropdown> */}
                 <Nav.Link href="#investor">Investor Relationship</Nav.Link>
-                <Nav.Link href="#news">News</Nav.Link>
+                <Nav.Link href="#latestnews">News</Nav.Link>
                 {/* <NavDropdown title="Career" id="basic-nav-dropdown">
                   <NavDropdown.Item href="#what-we-do">What We Do</NavDropdown.Item>
                   <NavDropdown.Item href="#career">Career</NavDropdown.Item>
@@ -50,12 +50,12 @@ export default function Header() {
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#contact">Contact</NavDropdown.Item>
                 </NavDropdown> */}
-                <Nav.Link as={Link} to="/admin">
+                {/* <Nav.Link as={Link} to="/admin">
         Admin
       </Nav.Link>
       <Nav.Link as={Link} to="/slider">
         SLIDER
-      </Nav.Link>
+      </Nav.Link> */}
                 <Nav.Link href="#contact">
                   <Btntopheader>Contact</Btntopheader>
                 </Nav.Link>
@@ -280,7 +280,7 @@ const LogoContainer = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 40%;
+  // width: 40%;
   height: 75px;
 `;
 
