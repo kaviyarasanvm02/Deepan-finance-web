@@ -15,7 +15,14 @@ import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { FaFileSignature } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
-import Deepalogo from "../../assets/logos/logo-deepan1.png";
+import { MdOutlineViewHeadline } from "react-icons/md";
+import { FaBookReader } from "react-icons/fa";
+import { FaAddressCard } from "react-icons/fa6";
+import { PiPlugsConnectedFill } from "react-icons/pi";
+import { MdPermMedia } from "react-icons/md";
+import { MdOutlinePreview } from "react-icons/md";
+
+import Deepalogo from "../../assets/logos/logo-deepan1.png  ";
 
 import styled from 'styled-components';
 
@@ -28,14 +35,14 @@ const Admin = () => {
     <Box sx={{ display: 'flex' }}>
       
       <AppBar position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, background: "linear-gradient(90deg, rgba(192,2,2,1) 0%, rgba(2,0,36,0.8715861344537815) 49%, rgba(5,46,138,1) 100%);" }}
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, background:" #72446d" }}
       >
         <Toolbar sx={{ display: 'flex', justifyContent: "space-between",alignItems: "center" }}>
           <Typography variant="h6" noWrap component="div" sx={{backgroundColor: ""}}>
             Admin Panel
           </Typography>
           <Typography variant="p" noWrap component="div" sx={{ color: "#fff", backgroundColor: "rgb(225, 35, 35)",padding:" 5px 10px"}}>
-            <Link to="/login" > <FaSignOutAlt  /></Link>
+            <Link to="/" > <FaSignOutAlt  /></Link>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -49,6 +56,8 @@ const Admin = () => {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            background:" #72446d",
+            color: "#fff",
            },
         }}
         variant="permanent"
@@ -60,7 +69,7 @@ const Admin = () => {
         <List>
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/admin">
-              <ListItemIcon>
+              <ListItemIcon className='icon'>
                 <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
@@ -68,8 +77,8 @@ const Admin = () => {
           </ListItem>
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/admin/slider">
-              <ListItemIcon>
-              <FaFileSignature />
+              <ListItemIcon className='icon'>
+              <MdOutlineViewHeadline />
               </ListItemIcon>
               <ListItemText primary="Headers" />
             </ListItemButton>
@@ -77,8 +86,8 @@ const Admin = () => {
 
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/admin/about">
-              <ListItemIcon>
-              <FaFileSignature />
+              <ListItemIcon className='icon'>
+              <FaBookReader />
               </ListItemIcon>
               <ListItemText primary="About" />
             </ListItemButton>
@@ -86,8 +95,8 @@ const Admin = () => {
 
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/admin/card">
-              <ListItemIcon>
-              <FaFileSignature />
+              <ListItemIcon className='icon'>
+              <FaAddressCard />
               </ListItemIcon>
               <ListItemText primary="Card" />
             </ListItemButton>
@@ -95,8 +104,8 @@ const Admin = () => {
 
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/admin/joiner">
-              <ListItemIcon>
-              <FaFileSignature />
+              <ListItemIcon className='icon'>
+              <PiPlugsConnectedFill />
               </ListItemIcon>
               <ListItemText primary="Joiner" />
             </ListItemButton>
@@ -104,8 +113,8 @@ const Admin = () => {
 
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/admin/socialmedia">
-              <ListItemIcon>
-              <FaFileSignature />
+              <ListItemIcon className='icon'>
+              <MdPermMedia />
               </ListItemIcon>
               <ListItemText primary="Social Media" />
             </ListItemButton>
@@ -113,8 +122,8 @@ const Admin = () => {
 
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/admin/reviews">
-              <ListItemIcon>
-              <FaFileSignature />
+              <ListItemIcon className='icon'>
+              <MdOutlinePreview />
               </ListItemIcon>
               <ListItemText primary="Reviews" />
             </ListItemButton>
@@ -135,6 +144,11 @@ const Admin = () => {
 
 export default Admin;
 const Adminpage = styled.section`
+.icon{
+min-width: 50px;
+    font-size: 22px;
+    color: #fa0001;
+    }
 main{
   margin: 10px 10px;
 }
@@ -143,4 +157,8 @@ main{
   width: 100%;
     text-align: center;
     padding: 10px;}
+
 `;
+
+
+

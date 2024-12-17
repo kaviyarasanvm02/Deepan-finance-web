@@ -10,6 +10,7 @@ export default function Socialmedia() {
     const [formData, setFormData] = React.useState({
         subtitle: '',
         title: '',
+        describtion: '',
         youtubelink: "",
       });
     
@@ -65,6 +66,17 @@ export default function Socialmedia() {
                      label="Enter Subtitle"
                      name="subtitle"
                      value={formData.subtitle}
+                     onChange={handleFormChange}
+                     required
+                   />
+                  </Grid>
+                  <Grid item md={12} xs={12}>
+                   <TextField
+                     className="my-3"
+                     fullWidth
+                     label="Enter Describtion"
+                     name="describtion"
+                     value={formData.describtion}
                      onChange={handleFormChange}
                      required
                    />
