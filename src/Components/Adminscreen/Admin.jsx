@@ -15,16 +15,17 @@ import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SliderIcon from '@mui/icons-material/Image'; // Example icon for slider management
+import styled from 'styled-components';
 
 const drawerWidth = 240;
 
 const Admin = () => {
   return (
+    <Adminpage>
+        
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      {/* AppBar */}
-      <AppBar
-        position="fixed"
+      <AppBar position="fixed"
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
         <Toolbar>
@@ -84,23 +85,24 @@ const Admin = () => {
               <ListItemText primary="Card" />
             </ListItemButton>
           </ListItem>
-          {/* Add more admin sections here */}
+
         </List>
         <Divider />
       </Drawer>
 
       {/* Main content area */}
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3, ml: `${drawerWidth}px` }}
-      >
+      <Box component="main" className='main'  sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3, ml: `${drawerWidth}px` }}>
         <Toolbar />
-        <h1>Add your Sliders</h1>
-        {/* Render nested routes here */}
         <Outlet />
       </Box>
     </Box>
+    </Adminpage>
   );
 };
 
 export default Admin;
+const Adminpage = styled.section`
+main{
+  margin: 10px 10px;
+}
+`;

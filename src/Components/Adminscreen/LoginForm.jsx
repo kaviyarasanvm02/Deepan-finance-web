@@ -1,180 +1,177 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { TextField, TextareaAutosize, Radio, RadioGroup, FormControlLabel, FormControl, FormGroup, Checkbox, Button } from '@mui/material';
-import { IoIosRefresh } from 'react-icons/io';
-import { GiSpeaker } from 'react-icons/gi';
-import { Container,Row,Col } from 'react-bootstrap';
-import Cardimg1 from '../../assets/slider-img3.jpg'
-export default function Contact() {
+
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Container ,Row, Col } from "react-bootstrap";
+import Loginimg from "../../assets/logos/1000041623.jpg"
+import  Loginpg from '../../assets/login-background.png'
+import { Link } from "react-router-dom";
+export default function Loginform() {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
-  const [captcha, setCaptcha] = useState(generateCaptcha());
-  const [captchaInput, setCaptchaInput] = useState('');
-
-  const handleFormChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: value,
     });
-  };
-
-  const handleCaptchaRefresh = () => {
-    setCaptcha(generateCaptcha());
-    setCaptchaInput('');
-  };
-
-  const handleCaptchaSpeak = () => {
-    const speech = new SpeechSynthesisUtterance(captcha);
-    window.speechSynthesis.speak(speech);
-  };
-
-  const handleCaptchaInputChange = (e) => {
-    setCaptchaInput(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (captchaInput !== captcha) {
-      alert('CAPTCHA Mismatch. Please try again.');
-      handleCaptchaRefresh();
-      return;
-    }
-
-    if (!formData.agreeToPrivacy) {
-      alert('You must agree to the Privacy Policy.');
-      return;
-    }
-
-    alert('Form submitted successfully!');
-    console.log(formData);
-    // Reset form
-    setFormData({
-      email: '',
-      password: '',
-    });
-    handleCaptchaRefresh();
+    console.log("Form Data Submitted:", formData);
   };
 
   return (
-    <MainDiv>
-        <Container>
-            <Row>
-                <Col md={12}>
-                    <Heading>Let’s partner for #FutureReady Deepan India</Heading>
-                </Col>
-            </Row>
-            <form onSubmit={handleSubmit}>
-                <Row>
-                    <Col md={12}>
-                            <TextField
-                            className="my-3"
-                            fullWidth
-                            label="Enter your Email ID"
-                            name="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={handleFormChange}
-                            required
-                            />
-                            
-                    </Col>
-                    <Col md={12}>
-                    <TextField
-                            className="my-3"
-                            fullWidth
-                            label="Enter your password"
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleFormChange}
-                            />
-                    </Col>
-                </Row>
-                <Row className='my-5'>
-                    <Col md={4}>
-                        <Submitbtn type='submit'>Login</Submitbtn>
-                    </Col>
-                </Row>          
-            </form>  
-        </Container>
-    </MainDiv>
+    <LoginContainer>
+      <Container>
+          <Row>
+              <Col md={3}>
+              </Col>
+              <Col md={6} xs={12}>
+                  <Rightimg>
+                      <img src={Loginimg} alt="login-img"/>
+                 <form onSubmit={handleSubmit}  class="login">
+                <h2>Login</h2>
+                  <Input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    value={formData.username}
+                    onChange={handleChange}
+                  />
+                  <Input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <SubmitButton type="submit">Login</SubmitButton>
+                </form>
+                  <Link to="/">Go To Home</Link>
+                  </Rightimg>
+              </Col>
+              <Col md={3}>
+              </Col>
+          </Row>
+      </Container>
+
+     
+    </LoginContainer>
   );
 }
 
-
-const MainDiv = styled.div`
-  padding: 80px 0px;
-`;
-
-const Heading = styled.h1`
-text-align: left;
-  font-size: 34px;
-  font-weight: bold;
-  fontFamily: "Nunito Sans",
-  margin-bottom: 20px;
-
-  @media screen and (max-width: 600px){
-  font-size: 24px;
-  }
-`;
-
-const CaptchaWrapper = styled.div`
-  margin: 20px 0;
-`;
-
-const CaptchaBox = styled.div`
+// Styled Components
+const LoginContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-`;
-
-const CaptchaText = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  fontFamily: "Nunito Sans",
-`;
-
-const IconButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #333;
-  &:hover {
-    color: #007bff;
-  }
+  justify-content: center;
+  height: 100vh;
+  // background-color: #f9f9f9;
+ background: linear-gradient(
+            90deg,
+            rgba(250, 0, 1, 0.26) 1%,
+            rgba(0, 0, 0, 0.52) 54%,
+            rgba(7, 49, 159, 0.18) 97%
+        ),
+        url(${Loginpg});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 `;
 
 const Input = styled.input`
-fontFamily: "Nunito Sans",
   width: 100%;
-  height: 45px;
   padding: 10px;
+  margin: 10px 0;
   font-size: 16px;
-  margin-top: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 4px;
 `;
 
-const Submitbtn = styled.button`
-    background-color: #fff;
-    border: 1px solid #013396;
-    padding: 10px 15px;
-    margin: 10px 0;
-    width: 100%;
-    color: blue;
-    font-weight: 800;
+const SubmitButton = styled.button`
+ color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 10px 10px;
+    border: 1px solid;
+    margin: 10px 15px;
+    text-align: center;
+    width: 10rem;
+    cursor: pointer;
+    background:rgb(225, 35, 35);
     transition: all 0.5s ease-in-out;
-    &:hover{
-    background-color: #013396;
-    color: #fff;
-    border: 1px solid #fff;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const Rightimg = styled.div`
+  background: linear-gradient(90deg, rgba(192,2,2,1) 0%, rgba(2,0,36,0.20211834733893552) 49%, rgba(5,46,138,1) 100%);
+  padding: 25px 20px; 
+  text-align: center;
+  img{
+    width: 40%;
+    padding: 10px
     }
+        .login {
+  margin: 20px auto;
+  padding: 40px 30px;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 1px 1px 1px #666;
+}
+  .login input {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin: 10px 0;
+    padding: 14px 12px;
+    font-size: 16px;
+    border-radius: 2px; 
+  }
+
+.login input[type=text],
+.login input[type=password] {
+  border: 1px solid #c0c0c0;
+  transition: .2s;
+}
+
+.login input[type=text]:hover,
+.login input[type=password]:hover  {
+  border-color: #F44336;
+  outline: none;
+  transition: all .2s ease-in-out;
+} 
+
+.login input[type=submit] {
+  border: none;
+  background: #EF5350;
+  color: white;
+  font-weight: bold;  
+  transition: 0.2s;
+  margin: 20px 0px;
+}
+
+.login input[type=submit]:hover {
+  background: #F44336;  
+}
+
+  .login h2 {
+    margin: 20px 0 0; 
+    color: #EF5350;
+    font-size: 28px;
+  }
+
+  .login h2,
+  .login p,
+  .login a {
+    text-align: center;    
+  }
+
 `;

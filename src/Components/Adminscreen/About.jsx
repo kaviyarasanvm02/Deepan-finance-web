@@ -59,6 +59,7 @@ export default function Aboutss() {
                   fontSize: '16px',
                   border: '1px solid #ccc',
                   borderRadius: '4px',
+                  background: "#f3f3f3",
                 }}
               />
             </Grid>
