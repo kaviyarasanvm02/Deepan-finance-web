@@ -51,8 +51,8 @@ export default function App() {
         {/* Admin Site Routes */}
         <Route path="/admin" element={<Admin />}>
           {/* Nested routes must use relative paths */}
-          <Route index element={<div>Welcome to the Admin Dashboard</div>} />
-          <Route path="slider" element={<Slider />} />
+          {/* <Route index element={<div>Welcome to the Admin Dashboard</div>} /> */}
+          <Route path="slider" index element={<Slider />} />
           <Route path="card" element={<Cardss />} />
           <Route path="about" element={<Aboutss />} />
           <Route path="joiner" element={<Joiner />} />

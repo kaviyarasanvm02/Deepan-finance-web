@@ -83,12 +83,12 @@ export default function Footer() {
                 <Col md= {3} lg={3} xl={3} xs={12}>
                     <Links>
                         <li>Contact</li>
-                        <Link to="/admin">
-                            <li>Admin</li>
-                        </Link>
                         <Link to="/login">
-                            <li>Login</li>
+                            <li>Admin login</li>
                         </Link>
+                        {/* <Link to="/login">
+                            <li>Login</li>
+                        </Link> */}
                     </Links>
                 </Col>
             </Row>
