@@ -6,160 +6,208 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';  
-import { FaSignOutAlt } from "react-icons/fa";
-import { MdOutlineViewHeadline } from "react-icons/md";
-import { FaBookReader } from "react-icons/fa";
-import { FaAddressCard } from "react-icons/fa";
-import { PiPlugsConnectedFill } from "react-icons/pi";
-import { MdPermMedia } from "react-icons/md";
-import { MdOutlinePreview } from "react-icons/md";
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import { FaSignOutAlt, FaBookReader, FaAddressCard } from 'react-icons/fa';
+import { MdOutlineViewHeadline, MdPermMedia, MdOutlinePreview } from 'react-icons/md';
+import { PiPlugsConnectedFill } from 'react-icons/pi';
 
-import Deepalogo from "../../assets/logos/logo-deepan1.png";
+import Deepalogo from '../../assets/logos/logo-deepan1.png';
 import styled from 'styled-components';
+import { useTheme, useMediaQuery } from '@mui/material';
 
 const drawerWidth = 240;
 
 const Admin = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null); // For profile dropdown
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md','sx')); // Adjust for medium screens and smaller
 
-  const toggleDropdown = () => {
-    setIsOpen((prevState) => !prevState);
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const drawerContent = (
+    <div>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          p: 1,
+        }}
+      >
+        <img src={Deepalogo} alt="Logo" style={{ width: '70%' }} />
+        {isMobile && (
+          <IconButton onClick={handleDrawerToggle}>
+            <CloseIcon sx={{ color: '#fff' }} />
+          </IconButton>
+        )}
+      </Box>
+      <Divider />
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/admin/slider">
+            <ListItemIcon className="icon">
+              <MdOutlineViewHeadline />
+            </ListItemIcon>
+            <ListItemText primary="Headers" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/admin/about">
+            <ListItemIcon className="icon">
+              <FaBookReader />
+            </ListItemIcon>
+            <ListItemText primary="About" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/admin/card">
+            <ListItemIcon className="icon">
+              <FaAddressCard />
+            </ListItemIcon>
+            <ListItemText primary="Card" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/admin/joiner">
+            <ListItemIcon className="icon">
+              <PiPlugsConnectedFill />
+            </ListItemIcon>
+            <ListItemText primary="Joiner" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/admin/socialmedia">
+            <ListItemIcon className="icon">
+              <MdPermMedia />
+            </ListItemIcon>
+            <ListItemText primary="Social Media" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/admin/reviews">
+            <ListItemIcon className="icon">
+              <MdOutlinePreview />
+            </ListItemIcon>
+            <ListItemText primary="Reviews" />
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <Divider />
+    </div>
+  );
 
   return (
     <Adminpage>
       <Box sx={{ display: 'flex' }}>
-        <AppBar position="fixed" sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, background: "#0c1035" }}>
-          <Toolbar sx={{ display: 'flex', justifyContent: "space-between", alignItems: "center" }}>
-            <Typography variant="h6" noWrap component="div">Admin Panel</Typography>
-            <div style={{ position: "relative", display: "inline-block" }}>
-              <Typography
-                component="div"
-                onClick={toggleDropdown}
-                sx={{
-                  color: "#fff",
-                  backgroundColor: "rgb(225, 35, 35)",
-                  padding: "5px 10px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  borderRadius: "4px",
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          sx={{
+            width: isMobile ? '100%' : `calc(100% - ${drawerWidth}px)`,
+            ml: isMobile ? 0 : `${drawerWidth}px`,
+            background: '#0c1035',
+          }}
+        >
+          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            {isMobile && (
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+            <Typography variant="h6" noWrap component="div">
+              Admin Panel
+            </Typography>
+            <div>
+              <IconButton onClick={handleMenuOpen} sx={{ p: 0 }}>
+                <Avatar sx={{ bgcolor: 'rgb(225, 35, 35)' }}>A</Avatar>
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
               >
-                <FaSignOutAlt />
-              </Typography>
-              {isOpen && (
-                <div
-                  className="dropdown-menu profil-dropdown"
-                  style={{
-                    display: "block",
-                    position: "absolute",
-                    top: "100%",
-                    right: 0,
-                    padding:"10px 15px",
-                    zIndex: 1000,
-                    backgroundColor: "#fff",
-                    borderRadius: "4px",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-                  }}
-                >
-                  <div className="card border-0">
-                      <h5 className="card-title">Admin</h5>
-                      <h6 className="card-subtitle mb-1 text-muted m-0">admin@gmail.com</h6>
-                      <p >  <Link to="/" style={{color:"#fa0001"}}>  Logout  </Link></p>
-                  </div>
-                </div>
-              )}
+                <MenuItem disabled >
+                  <Typography variant="body1" sx={{ fontWeight: 'bold', opacity: "1" }}>
+                    Admin
+                  </Typography>
+                </MenuItem>
+                <MenuItem disabled>
+                  <Typography variant="body2" sx={{ color: '#0c1035' ,opacity: "1"  }}>
+                    admin@gmail.com
+                  </Typography>
+                </MenuItem>
+                <Divider />
+                <MenuItem onClick={handleMenuClose}>
+                  <Link to="/" style={{ textDecoration: 'none', color: '#fa0001' }}>
+                    <FaSignOutAlt style={{ marginRight: '8px' }} />
+                    Logout
+                  </Link>
+                </MenuItem>
+              </Menu>
             </div>
           </Toolbar>
         </AppBar>
 
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            '& .MuiDrawer-paper': {
+        <nav aria-label="admin drawer">
+          {/* Drawer for desktop and mobile */}
+          <Drawer
+            variant={isMobile ? 'temporary' : 'permanent'}
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Improves performance on mobile
+            }}
+            sx={{
               width: drawerWidth,
-              boxSizing: 'border-box',
-              background: "#0c1035;",
-              color: "#fff",
-            },
-          }}
-          variant="permanent"
-          anchor="left"
-        >
-          <img src={Deepalogo} alt="Logo" />
-          <Divider />
-          <List>
-            {/* <ListItem disablePadding>
-              <ListItemButton component={Link} to="/admin">
-                <ListItemIcon className="icon">
-                  <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary="Dashboard" />
-              </ListItemButton>
-            </ListItem> */}
-            <ListItem disablePadding>
-              <ListItemButton component={Link} to="/admin/slider">
-                <ListItemIcon className="icon">
-                  <MdOutlineViewHeadline />
-                </ListItemIcon>
-                <ListItemText primary="Headers" />
-              </ListItemButton>
-            </ListItem>'
-            
-            <ListItem disablePadding>    
-              <ListItemButton component={Link} to="/admin/about">
-                <ListItemIcon className="icon">
-                  <FaBookReader />
-                </ListItemIcon>
-                <ListItemText primary="About" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton component={Link} to="/admin/card">
-                <ListItemIcon className="icon">
-                  <FaAddressCard />
-                </ListItemIcon>
-                <ListItemText primary="Card" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton component={Link} to="/admin/joiner">
-                <ListItemIcon className="icon">
-                  <PiPlugsConnectedFill />
-                </ListItemIcon>
-                <ListItemText primary="Joiner" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton component={Link} to="/admin/socialmedia">
-                <ListItemIcon className="icon">
-                  <MdPermMedia />
-                </ListItemIcon>
-                <ListItemText primary="Social Media" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton component={Link} to="/admin/reviews">
-                <ListItemIcon className="icon">
-                  <MdOutlinePreview />
-                </ListItemIcon>
-                <ListItemText primary="Reviews" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-          <Divider />
-        </Drawer>
+              flexShrink: 0,
+              '& .MuiDrawer-paper': {
+                width: drawerWidth,
+                boxSizing: 'border-box',
+                background: '#0c1035',
+                color: '#fff',
+              },
+            }}
+          >
+            {drawerContent}
+          </Drawer>
+        </nav>
 
-        <Box component="main" className="main" sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3, ml: `${drawerWidth}px` }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <Toolbar />
           <Outlet />
         </Box>
@@ -175,9 +223,6 @@ const Adminpage = styled.section`
     min-width: 50px;
     font-size: 22px;
     color: #fa0001;
-  }
-  main {
-    margin: 10px 10px;
   }
   img {
     width: 100%;
