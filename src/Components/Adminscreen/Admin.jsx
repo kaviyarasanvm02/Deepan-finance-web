@@ -30,9 +30,9 @@ const drawerWidth = 240;
 
 const Admin = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null); // For profile dropdown
+  const [anchorEl, setAnchorEl] = useState(null); 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md','sx')); // Adjust for medium screens and smaller
+  const isMobile = useMediaQuery(theme.breakpoints.down('md','sx')); 
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -184,13 +184,13 @@ const Admin = () => {
         </AppBar>
 
         <nav aria-label="admin drawer">
-          {/* Drawer for desktop and mobile */}
+      
           <Drawer
             variant={isMobile ? 'temporary' : 'permanent'}
             open={mobileOpen}
             onClose={handleDrawerToggle}
             ModalProps={{
-              keepMounted: true, // Improves performance on mobile
+              keepMounted: true, 
             }}
             sx={{
               width: drawerWidth,
