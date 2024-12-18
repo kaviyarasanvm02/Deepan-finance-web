@@ -68,6 +68,10 @@ export default function Cardpart() {
 const Maindiv = styled.section`
   padding: 80px 0;
 
+  @media screen and (max-width: 600px){
+    padding: 40px 0;
+  }
+
   .carousel-control-prev, .carousel-control-next {
     opacity: 1; /* Ensure controls are visible */
   }

@@ -164,6 +164,9 @@ const Maindiv = styled.div`
   padding: 85px 0;
   background-color: #f7f7f7;
   
+  @media screen and (max-width: 600px){
+    padding: 40px 0;
+  }
 `;
 
 const Largescreentabs = styled.div`

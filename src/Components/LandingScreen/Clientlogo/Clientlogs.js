@@ -53,6 +53,9 @@ const LogoImage = styled.img`
 const Mysec = styled.section`
   padding: 50px 0;
   background-color: #f9f9f9;
+  @media screen and (max-width: 600px){
+    padding: 40px 0;
+  }
 `;
 
 const LogoSlider = () => {

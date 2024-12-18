@@ -79,4 +79,8 @@ export default About;
 const Maindiv = styled.section`
   padding: 75px 0;
 
+  @media screen and (max-width: 600px){
+    padding: 40px 0;
+  }
+
 `;

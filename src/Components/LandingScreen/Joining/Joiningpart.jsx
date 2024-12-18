@@ -47,6 +47,10 @@ const Maindiv = styled.section`
     transition: transform 0.6s ease-in-out; /* Unified transition for transform */
      filter: blur(1px); /* Initial state */
 
+     @media screen and (max-width: 600px){
+    padding: 40px 0;
+  }
+
     &:hover {
         filter: blur(0); /* Apply blur effect on hover */
     }

@@ -210,6 +210,10 @@ const generateCaptcha = () => {
 
 const MainDiv = styled.div`
   padding: 80px 0px;
+
+  @media screen and (max-width: 600px){
+    padding: 40px 0;
+  }
 `;
 
 const Heading = styled.h1`

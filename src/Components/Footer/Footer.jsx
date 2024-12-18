@@ -118,6 +118,9 @@ export default function Footer() {
 const Footermain = styled.section`
     padding: 70px 0 30px 0;
     background-color: #e8e4e4;
+    @media screen and (max-width: 600px){
+    padding: 40px 0;
+  }
 `;
 const Foottitle = styled.h3`
     font-size: 16px;
