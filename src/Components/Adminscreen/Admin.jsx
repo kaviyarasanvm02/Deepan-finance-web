@@ -47,7 +47,7 @@ const Admin = () => {
   };
 
   const drawerContent = (
-    <div>
+    <Mobileadmin>
       <Box
         sx={{
           display: 'flex',
@@ -56,7 +56,7 @@ const Admin = () => {
           p: 1,
         }}
       >
-        <img src={Deepalogo} alt="Logo" style={{ width: '70%' }} />
+        <img src={Deepalogo} alt="Logo"  />
         {isMobile && (
           <IconButton onClick={handleDrawerToggle}>
             <CloseIcon sx={{ color: '#fff' }} />
@@ -115,7 +115,7 @@ const Admin = () => {
         </ListItem>
       </List>
       <Divider />
-    </div>
+    </Mobileadmin>
   );
 
   return (
@@ -149,6 +149,7 @@ const Admin = () => {
                 <Avatar sx={{ bgcolor: 'rgb(225, 35, 35)' }}>A</Avatar>
               </IconButton>
               <Menu
+              sx={{top: "45px;",}}
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
@@ -166,11 +167,10 @@ const Admin = () => {
                     Admin
                   </Typography>
                 </MenuItem>
-                <MenuItem disabled>
-                  <Typography variant="body2" sx={{ color: '#0c1035' ,opacity: "1"  }}>
+                <MenuItem>
+                <Typography variant="body2" sx={{ color: '#0c1035' ,opacity: "1"  }}>
                     admin@gmail.com
-                  </Typography>
-                </MenuItem>
+                  </Typography></MenuItem>
                 <Divider />
                 <MenuItem onClick={handleMenuClose}>
                   <Link to="/" style={{ textDecoration: 'none', color: '#fa0001' }}>
@@ -219,7 +219,10 @@ const Admin = () => {
 export default Admin;
 
 const Adminpage = styled.section`
-  .icon {
+ 
+`;
+const Mobileadmin =styled.div`
+ .icon {
     min-width: 50px;
     font-size: 22px;
     color: #fa0001;
@@ -229,4 +232,12 @@ const Adminpage = styled.section`
     text-align: center;
     padding: 10px;
   }
+    @media screen and (max-width: 600px){
+        .icon {
+    color: #fa0001;
+  }
+  img {
+    width: 85%;
+  }
+    }
 `;

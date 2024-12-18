@@ -16,6 +16,7 @@ import Contact from "./Components/LandingScreen/Formpart/Contact";
 /* Admin Site Components */
 import Admin from "./Components/Adminscreen/Admin";
 import Loginform from "./Components/Adminscreen/LoginForm";
+import Instruction from "./Components/Adminscreen/Intruction";
 import Slider from "./Components/Adminscreen/Slider";
 import Cardss from "./Components/Adminscreen/Card";
 import Aboutss from "./Components/Adminscreen/About";
@@ -54,7 +55,7 @@ export default function App() {
         {/* Admin Site Routes */}
         <Route path="/admin" element={<Admin />}>
           {/* Nested routes must use relative paths */}
-          <Route index element={<div>Welcome to the Admin Dashboard</div>} />
+          <Route index element={<Instruction/>}/>
           <Route path="slider" index element={<Slider />} />
           <Route path="card" element={<Cardss />} />
           <Route path="about" element={<Aboutss />} />
