@@ -3,15 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import { Container, Row, Col } from "react-bootstrap";
 
-const About = ({ content = [] }) => {
-  const text = [
-    {
-      title: "Your trusted partner in investments,",
-      description: `
-       Deepan India Financial Services Pvt Ltd was founded in 2024, by a team led by Mr. S Raja , with a passion to provide investment cum trading solutions in Indian financial markets. Our mission is to create wealth for our investors through the right technology, research, knowledge & ethics. With 24+ years of trust & experience, we are the most reputed advisory services company in North Chennai providing all kinds of financial services which includes investing, trading, mutual funds, research, training etc. 
-      `,
-    },
-  ];
+export const About = ({data }) => {
+  const {title,description} = data[0] || {};
  
   return (
     <Maindiv id="About">
@@ -28,7 +21,7 @@ const About = ({ content = [] }) => {
                 padding: "20px",
               }}
             >
-              {content.map((index, key) => (
+              {data.map((index, key) => (
                 <Grid
                   key={key}
                   direction="column"
@@ -49,7 +42,7 @@ const About = ({ content = [] }) => {
                       },
                     }}
                   >
-                    {text[index]?.title || "Title not found"}
+                    {title || "Title not found"}
                   </Typography>
                   <Typography
                     sx={{
@@ -62,7 +55,7 @@ const About = ({ content = [] }) => {
                       },
                     }}
                   >
-                    {text[index]?.description || "Description not found"}
+                    {description || "Description not found"}
                   </Typography>
                 </Grid>
               ))}
@@ -74,7 +67,7 @@ const About = ({ content = [] }) => {
   );
 };
 
-export default About;
+
 
 const Maindiv = styled.section`
   padding: 75px 0;

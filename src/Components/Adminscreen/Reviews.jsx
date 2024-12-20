@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import SuccessPopup from './Successpop';
 import FailurePopup from './Failurepop';
 import styled from 'styled-components';
-import {  TextareaAutosize, Grid,  } from '@mui/material';
+import {  TextareaAutosize, Grid, TextField,  } from '@mui/material';
 
 export default function Reviews() {
         const [successOpen, setSuccessOpen] = useState(false);
         const [failureOpen, setFailureOpen] = useState(false);
     const [formData, setFormData] = React.useState({
         para: '',
+        name: '',
+        details: '',
       });
     
       const handleFormChange = (e) => {
@@ -23,9 +25,9 @@ export default function Reviews() {
       const handleSubmit = (e) => {
         e.preventDefault();
     
-        const { title, subtitle, para, image } = formData;
+        const { name, details, para, image } = formData;
     
-        if (  para ) {
+        if (  para || name || details ) {
           console.log('Form submitted successfully:', formData);
           setSuccessOpen(true); // Show success popup
         } else {
@@ -50,7 +52,7 @@ export default function Reviews() {
                    <TextareaAutosize
                      className="my-3"
                      minRows={6}
-                     placeholder="Enter Paragraph"
+                     placeholder="Enter Review"
                      name="para"
                      value={formData.para}
                      onChange={handleFormChange}
@@ -65,6 +67,26 @@ export default function Reviews() {
                    />
                  </Grid>
                </Grid>
+                    <Grid item md={12} xs={12}>
+                   <TextField
+                     className="my-3"
+                     placeholder="Enter CustomerName"
+                     name="name"
+                     fullWidth
+                     value={formData.name}
+                     onChange={handleFormChange}
+                   />
+                 </Grid>
+                    <Grid item md={12} xs={12}>
+                   <TextField
+                     className="my-3"
+                     placeholder="Enter CustomerDatails"
+                     name="details"
+                     fullWidth
+                     value={formData.details}
+                     onChange={handleFormChange}
+                   />
+                 </Grid>
                <Grid container justifyContent="flex-start" className="my-5">
                  <Grid item>
                    <SubmitButton type="submit">Update</SubmitButton>

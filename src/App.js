@@ -1,14 +1,14 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 /* Home Pages Components */
 import Home from "./Components/LandingScreen/Slider/Slider";
 import LogoSlider from "./Components/LandingScreen/Clientlogo/Clientlogs";
-import About from "./Components/LandingScreen/About/About";
+// import About from "./Components/LandingScreen/About/About";
 import Tabscontent from "./Components/LandingScreen/Tobs/Tabssection";
 import Cardpart from "./Components/LandingScreen/Cards/Cardpart";
-import Joiningpart from "./Components/LandingScreen/Joining/Joiningpart";
+// import Joiningpart from "./Components/LandingScreen/Joining/Joiningpart";
 import MediaContent from "./Components/LandingScreen/Latestnews/MediaContent";
 import Reviews from "./Components/LandingScreen/Review/Reviews";
 import Contact from "./Components/LandingScreen/Formpart/Contact";
@@ -23,8 +23,17 @@ import Aboutss from "./Components/Adminscreen/About";
 import Joiner from "./Components/Adminscreen/Joiner";
 import Reviewss from "./Components/Adminscreen/Reviews";
 import Socialmedia from "./Components/Adminscreen/Socialmedia";
+import LandingScreen from "./Components/LandingScreen";
 
 export default function App() {
+
+  const {pathname} = useLocation();
+
+  useEffect(() => {
+    if(pathname !== "/"){
+      window.scrollTo(0,0);
+    }
+  }, [pathname]);
   return (
     <>
       <Routes>
@@ -34,31 +43,26 @@ export default function App() {
           element={
             <>
               <Header />
-              <Home />
+              {/* <Home /> */}
+            <LandingScreen/>
               <LogoSlider />
-              <About content={[0]} />
               <Tabscontent />
               <Cardpart />
-              <Joiningpart />
               <MediaContent mediaContent={[0]} />
               <Reviews />
               <Contact />
-              <Footer />
-                 
-
-
-                 
+              <Footer />  
             </>
           }
         />
-        <Route path="/login" element={<Loginform />} />
+        <Route path="/adminlogin" element={<Loginform />} />
         {/* Admin Site Routes */}
         <Route path="/admin" element={<Admin />}>
           {/* Nested routes must use relative paths */}
           <Route index element={<Instruction/>}/>
           <Route path="slider" index element={<Slider />} />
-          <Route path="card" element={<Cardss />} />
           <Route path="about" element={<Aboutss />} />
+          <Route path="card" element={<Cardss />} />
           <Route path="joiner" element={<Joiner />} />
           <Route path="reviews" element={<Reviewss />} />
           <Route path="socialmedia" element={<Socialmedia />} />

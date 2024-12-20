@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { TextField, TextareaAutosize, Grid } from '@mui/material';
 import SuccessPopup from './Successpop';
 import FailurePopup from './Failurepop';
+import { instance } from '../../utils/api';
 
 export default function Slider() {
   const [successOpen, setSuccessOpen] = useState(false);
   const [failureOpen, setFailureOpen] = useState(false);
-
-
   const [formData, setFormData] = useState({
-    subtitle: '',
     title: '',
-    para: '',
-    image: null,
+    subTitle: '',
+    description: '',
+    button_name: '',
   });
+  const [imageFile, setImageFile] = useState(null);
+  const [sliderData, setSliderData] = useState(null); 
 
+ 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -24,31 +26,85 @@ export default function Slider() {
     }));
   };
 
-  // Handle image change
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setFormData((prev) => ({
-      ...prev,
-      image: file,
-    }));
+    setImageFile(file);
   };
 
-  
-  const handleSubmit = (e) => {
-    e.preventDefault();
 
-    const { title, subtitle, para, image } = formData;
-
-    if (title && subtitle && para && image) {
-      console.log('Form submitted successfully:', formData);
-      setSuccessOpen(true); // Show success popup
-    } else {
-      console.log('Form submission failed: Missing fields');
-      setFailureOpen(true); // Show failure popup
+  const getHeader = async () => {
+    try {
+      const response = await instance.get(`/landing/admin/Header`);
+      if (response.status === 200 && response.data.length > 0) {
+        setSliderData(response.data[0]); 
+        setFormData(response.data[0]); 
+      } else {
+        setSliderData(null); 
+      }
+    } catch (error) {
+      console.error('Error fetching header data:', error);
     }
   };
 
-  // Close popups
+  // Create new slider data
+  const createHeader = async (e) => {
+    e.preventDefault();
+    try {
+      const data = new FormData();
+      data.append('title', formData.title);
+      data.append('subTitle', formData.subTitle);
+      data.append('description', formData.description);
+      data.append('button_name', formData.button_name);
+      if (imageFile) data.append('images', imageFile);
+
+      await instance.post(`/landing/admin/Header`, data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      await getHeader(); 
+      setSuccessOpen(true);
+    } catch (error) {
+      console.error('Error creating header:', error);
+      setFailureOpen(true);
+    }
+  };
+
+
+  const updateHeader = async (e) => {
+    e.preventDefault();
+    try {
+      const data = new FormData();
+      data.append('title', formData.title);
+      data.append('subTitle', formData.subTitle);
+      data.append('description', formData.description);
+      data.append('button_name', formData.button_name);
+      if (imageFile) data.append('images', imageFile);
+
+      await instance.put(`/landing/admin/Header/1`, data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      await getHeader(); 
+      setSuccessOpen(true);
+    } catch (error) {
+      console.error('Error updating header:', error);
+      setFailureOpen(true);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    if (sliderData) {
+      updateHeader(e);
+    } else {
+      createHeader(e);
+    }
+  };
+
+  useEffect(() => {
+    getHeader();
+  }, []);
+
   const handleClose = () => {
     setSuccessOpen(false);
     setFailureOpen(false);
@@ -76,8 +132,8 @@ export default function Slider() {
                   className="my-3"
                   fullWidth
                   label="Enter Subtitle"
-                  name="subtitle"
-                  value={formData.subtitle}
+                  name="subTitle"
+                  value={formData.subTitle}
                   onChange={handleFormChange}
                   required
                 />
@@ -86,9 +142,9 @@ export default function Slider() {
                 <TextareaAutosize
                   className="my-3"
                   minRows={6}
-                  placeholder="Enter Paragraph"
-                  name="para"
-                  value={formData.para}
+                  placeholder="Enter Description"
+                  name="description"
+                  value={formData.description}
                   onChange={handleFormChange}
                   style={{
                     width: '100%',
@@ -98,22 +154,35 @@ export default function Slider() {
                     borderRadius: '4px',
                     background: '#f3f3f3',
                   }}
+                  required
                 />
               </Grid>
               <Grid item md={12} xs={12}>
                 <TextField
                   className="my-3"
                   fullWidth
-                  name="image"
+                  label="Enter Button Name"
+                  name="button_name"
+                  value={formData.button_name}
+                  onChange={handleFormChange}
+                  required
+                />
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <TextField
+                  className="my-3"
+                  fullWidth
+                  name="images"
                   type="file"
                   onChange={handleImageChange}
-                  required
                 />
               </Grid>
             </Grid>
             <Grid container justifyContent="flex-start" className="my-5">
               <Grid item>
-                <SubmitButton type="submit">Update</SubmitButton>
+                <SubmitButton type="submit">
+                  {sliderData ? 'Update' : 'Create'}
+                </SubmitButton>
               </Grid>
             </Grid>
           </form>
@@ -128,7 +197,7 @@ export default function Slider() {
       />
       <FailurePopup
         open={failureOpen}
-        message="Form submission failed. Please fill all required fields."
+        message="Form submission failed. Please try again."
         onClose={handleClose}
       />
     </AdminContentPart>
