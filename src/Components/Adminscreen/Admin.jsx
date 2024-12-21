@@ -41,17 +41,17 @@ const Admin = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md", "sx"));
 
-  const isAuthenticated = useMemo(() => {
-    const token = cookies.get("user")?.userId;
-    return Boolean(token);
-  },[]);
+  // const isAuthenticated = useMemo(() => {
+  //   const token = cookies.get("user")?.userId;
+  //   return Boolean(token);
+  // },[]);
 
-  const allowMethod = () => {
-    const token = cookies.get("user")?.userId;
-    if(!token) {
-      navigate("/login");
-    }
-  };
+  // const allowMethod = () => {
+  //   const token = cookies.get("user")?.userId;
+  //   if(!token) {
+  //     navigate("/login");
+  //   }
+  // };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -65,9 +65,9 @@ const Admin = () => {
     setAnchorEl(null);
   };
 
-  useEffect(()=> {
-    allowMethod();
-  },[]);
+  // useEffect(()=> {
+  //   allowMethod();
+  // },[]);
 
   const drawerContent = (
     <Mobileadmin>
@@ -143,7 +143,7 @@ const Admin = () => {
 
   return (
     <Adminpage>
-      {isAuthenticated ? (
+      {/* {isAuthenticated ? ( */}
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar
@@ -245,7 +245,7 @@ const Admin = () => {
           <Outlet />
         </Box>
       </Box>
-      ) : null}
+      {/* ) : null} */}
     </Adminpage>
   );
 };

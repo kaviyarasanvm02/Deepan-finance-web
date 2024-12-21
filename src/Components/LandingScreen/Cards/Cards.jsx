@@ -1,26 +1,32 @@
 import React from 'react'
 import styled from 'styled-components'
 import Card from 'react-bootstrap/Card';
-export default function Cards({cardImg, cardTitle, cardText}) {
+import { Url } from '../../../utils/api';
+export default function Cards({ e }) {
+  // const image = Url || e?.image || "";
+  const { description, subTitle, title } = e || {};
+  console.log(e)
   return (
     <Mycard>
-        <Card >
+      <Card >
         <CardImg>
-        <Card.Img variant="top" className='cardimg' src={cardImg} />
+          <img className='cardimg' src={typeof e?.image === "object"
+            ? URL.createObjectURL(e.image)
+            : Url + e.image} />
         </CardImg>
         <Card.Body className='card-bordy'>
-            <Card.Title>{cardTitle}</Card.Title>
-            <Card.Text className='text'>
-            {cardText}
-            </Card.Text>
+          <Card.Title>{subTitle}</Card.Title>
+          <Card.Text className='text'>
+            {description}
+          </Card.Text>
         </Card.Body>
-        </Card>
+      </Card>
     </Mycard>
   )
 }
 
 
- const Mycard = styled.div`
+const Mycard = styled.div`
  margin: 15px 0;
 
   Img{
@@ -54,14 +60,17 @@ export default function Cards({cardImg, cardTitle, cardText}) {
   font-size: 16px ;
 
 } 
- `;  
- const CardImg =styled.div`
+ `;
+const CardImg = styled.div`
     position: relative;
     overflow: hidden;
     transition: 0.6s ease-in-out;
+   
     .cardimg{
         transform: scale(1.1);
-        transition: all 0.5s
+        transition: all 0.5s ease-in-out;
+         width: 100%;
+        
     }
     &:hover .cardimg{
          transform: scale(1.2);

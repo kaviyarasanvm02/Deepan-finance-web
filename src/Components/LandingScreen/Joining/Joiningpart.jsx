@@ -4,12 +4,17 @@ import styled from "styled-components";
 import { Url } from "../../../utils/api";
 
 export const Joiningpart = ({ data }) => {
-  // Ensure the data is an array and destructure correctly
-  const image = data?.[0]?.image || '';
-  const { title, button_name1, button_name2 } = data?.[0] || {};
+  // Ensure data is available and destructure the first item
+  const { image, title, button_name1, button_name2 } = data?.[0] || {};
+
+  // Determine the image URL dynamically
+  const imageUrl =
+    typeof image === "object"
+      ? URL.createObjectURL(image)
+      : `${Url}${image || "/default-image-path.jpg"}`;
 
   return (
-    <Maindiv image={image}>
+    <Main imageUrl={imageUrl}>
       <ContentWrapper>
         <TextOverlay>
           <Typography variant="h1">{title}</Typography>
@@ -23,39 +28,30 @@ export const Joiningpart = ({ data }) => {
           </Joinbtns>
         </TextOverlay>
       </ContentWrapper>
-    </Maindiv>
+    </Main>
   );
 };
 
-
-const Maindiv = styled.section`
+// Pass the dynamic image URL via props
+const Main = styled.section`
   padding: 85px 0;
-  background: linear-gradient(
+  background: ${({ imageUrl }) =>
+    `linear-gradient(
       90deg,
       rgba(250, 0, 1, 0.26) 1%,
       rgba(0, 0, 0, 0.52) 54%,
       rgba(7, 49, 159, 0.18) 97%
-    ),
-    url(${(props) => props.image || '/default-image-path.jpg'}); 
+    ), url(${imageUrl})`};
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat !important;
   background-position: center;
   height: 70vh;
   display: flex;
   align-items: center;
-  position: relative;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.6s ease-in-out;
   filter: blur(1px);
-
-  @media screen and (max-width: 600px) {
-    padding: 40px 0;
-  }
-
-  &:hover {
-    filter: blur(0); 
-  }
 `;
 
 const ContentWrapper = styled.div`
@@ -83,10 +79,12 @@ const TextOverlay = styled.div`
     font-size: 3rem;
     font-weight: 800;
     margin: 0 0 20px 0;
+
     @media screen and (max-width: 600px) {
       font-size: 2rem;
     }
-    @media (max-width: 768px) {
+
+    @media screen and (max-width: 768px) {
       font-size: 2.5rem;
     }
   }

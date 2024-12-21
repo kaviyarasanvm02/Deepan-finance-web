@@ -7,7 +7,6 @@ import Home from "./Components/LandingScreen/Slider/Slider";
 import LogoSlider from "./Components/LandingScreen/Clientlogo/Clientlogs";
 // import About from "./Components/LandingScreen/About/About";
 import Tabscontent from "./Components/LandingScreen/Tobs/Tabssection";
-import Cardpart from "./Components/LandingScreen/Cards/Cardpart";
 // import Joiningpart from "./Components/LandingScreen/Joining/Joiningpart";
 import MediaContent from "./Components/LandingScreen/Latestnews/MediaContent";
 import Reviews from "./Components/LandingScreen/Review/Reviews";
@@ -47,7 +46,7 @@ export default function App() {
             <LandingScreen/>
               <LogoSlider />
               <Tabscontent />
-              <Cardpart />
+              
               <MediaContent mediaContent={[0]} />
               <Reviews />
               <Contact />
@@ -55,7 +54,7 @@ export default function App() {
             </>
           }
         />
-        <Route path="/adminlogin" element={<Loginform />} />
+        {/* <Route path="/adminlogin" element={<Loginform />} /> */}
         {/* Admin Site Routes */}
         <Route path="/admin" element={<Admin />}>
           {/* Nested routes must use relative paths */}
