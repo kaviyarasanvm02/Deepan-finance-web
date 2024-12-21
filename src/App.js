@@ -8,7 +8,7 @@ import LogoSlider from "./Components/LandingScreen/Clientlogo/Clientlogs";
 // import About from "./Components/LandingScreen/About/About";
 import Tabscontent from "./Components/LandingScreen/Tobs/Tabssection";
 // import Joiningpart from "./Components/LandingScreen/Joining/Joiningpart";
-import MediaContent from "./Components/LandingScreen/Latestnews/MediaContent";
+// import MediaContent from "./Components/LandingScreen/Latestnews/MediaContent";
 import Reviews from "./Components/LandingScreen/Review/Reviews";
 import Contact from "./Components/LandingScreen/Formpart/Contact";
 
@@ -42,13 +42,8 @@ export default function App() {
           element={
             <>
               <Header />
-              {/* <Home /> */}
             <LandingScreen/>
-              <LogoSlider />
-              <Tabscontent />
-              
-              <MediaContent mediaContent={[0]} />
-              <Reviews />
+              {/* <LogoSlider /> */}
               <Contact />
               <Footer />  
             </>

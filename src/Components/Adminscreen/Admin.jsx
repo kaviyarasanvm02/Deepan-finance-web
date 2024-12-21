@@ -48,9 +48,9 @@ const Admin = () => {
 
   // const allowMethod = () => {
   //   const token = cookies.get("user")?.userId;
-  //   if(!token) {
-  //     navigate("/login");
-  //   }
+  //   // if(!token) {
+  //   //   navigate("/login");
+  //   // }
   // };
 
   const handleDrawerToggle = () => {

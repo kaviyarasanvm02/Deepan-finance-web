@@ -52,6 +52,7 @@ export default function Cardss() {
       
             await getCardDetails(); 
             setSuccessOpen(true);
+            setCardOpen(false);
           } catch (error) {
             console.error('Error creating header:', error);
             setFailureOpen(true);
@@ -87,12 +88,14 @@ export default function Cardss() {
             // data.append('image', formData.image);
             if (imageFile) data.append('image', imageFile);
       
-            await instance.put(`/landing/admin/Blogs/:${id}`, data, {
+            await instance.put(`/landing/admin/Blogs/${id}`, data, {
               headers: { 'Content-Type': 'multipart/form-data' },
             });
+            
       
             await getCardDetails(); 
             setSuccessOpen(true);
+            setCardOpen(false);
           } catch (error) {
             console.error('Error creating header:', error);
             setFailureOpen(true);
@@ -213,7 +216,7 @@ const handleCloses = () => {
   {cardDetailsData.map((e, i) => (
     <Grid item xs={12} sm={6} md={4} lg={3} key={e.id}>
       <Card>
-        <Card.Img variant="top" src={typeof e?.image === "object"
+        <Card.Img variant="top" className='cardHeight' src={typeof e?.image === "object"
                               ? URL.createObjectURL(e.image)
                               : Url + e.image}  />
         <Card.Body className='cardbody'>
@@ -246,6 +249,9 @@ const AdminContentPart = styled.div`
   padding: 30px 15px;
   .cardbody{
     position: relative;
+    }
+    .cardHeight{
+     height :200px;
     }
 `;
 const SubmitButton = styled.button`
