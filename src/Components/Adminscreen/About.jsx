@@ -10,9 +10,9 @@ export default function Aboutss() {
   const [failureOpen, setFailureOpen] = useState(false);
   const [aboutData, setAboutData] = useState({ title: "", description: "" });
 
-  // const [tempAboutData, setTempAboutData] = useState([]);
-  // console.log(tempAboutData);
-  console.log("aboutData", aboutData);
+  const [tempAboutData, setTempAboutData] = useState([]);
+  console.log(tempAboutData);
+  console.log("aboutData", aboutData); 
 
   const createAboutData = async () => {
     try {
@@ -60,7 +60,7 @@ export default function Aboutss() {
       const response = await instance.get(`/landing/admin/About`);
       if (response.status === 200) {
         setAboutData(response.data[0] || { title: "", description: "" });
-        // setTempAboutData(response.data);
+        setTempAboutData(response.data);
       }
     } catch (error) {
       console.error("Error fetching about data:", error);
