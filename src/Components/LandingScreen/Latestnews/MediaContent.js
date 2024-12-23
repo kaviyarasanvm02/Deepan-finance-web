@@ -1,162 +1,238 @@
-import { Box, Grid, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Grid } from '@mui/material';
 import styled from 'styled-components';
 import { Url } from '../../../utils/api';
 
 const MediaContent = ({ data }) => {
-  // Access the first entry from caseStudyData
-  const { title, subTitle, description, image, url } = data?.caseStudyData?.[0] || {};
-  
-  // Log the full data object to confirm the structure
-  console.log("data", data);
+  const caseStudyData = data?.caseStudyData || [];
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [progress, setProgress] = useState([]);
+
+  // Initialize progress bars
+  useEffect(() => {
+    if (caseStudyData.length) {
+      setProgress(new Array(caseStudyData.length).fill(0));
+    }
+  }, [caseStudyData.length]);
+
+  // Handle progress bar animation
+  useEffect(() => {
+    if (!caseStudyData.length) return;
+
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        const newProgress = [...prevProgress];
+        newProgress[slideIndex] += 1;
+
+        if (newProgress[slideIndex] >= 100) {
+          const resetProgress = new Array(caseStudyData.length).fill(0);
+          const nextIndex = (slideIndex + 1) % caseStudyData.length;
+          setSlideIndex(nextIndex);
+          return resetProgress;
+        }
+        return newProgress;
+      });
+    }, 50); // Slightly faster transition than original
+
+    return () => clearInterval(interval);
+  }, [slideIndex, caseStudyData.length]);
+
+  const handleProgressClick = (index) => {
+    setSlideIndex(index);
+    setProgress(new Array(caseStudyData.length).fill(0));
+  };
 
   return (
-    <Maindiv id='latestnews'>
-      <Box
+    <StyledSection id='media'>
+      <Typography
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: "20px",
-          width: "100%",
+          fontSize: '2.5rem',
+          fontWeight: '800',
+          color: '#231f20',
+          fontFamily: 'Nunito Sans',
+          textAlign: 'center',
+          marginBottom: '40px',
+          '@media (max-width: 600px)': {
+            fontSize: '1.8rem',
+          },
         }}
       >
-        <Grid
-          container
-          spacing={2}
-          sx={{
-            maxWidth: "1200px",
-            width: "100%",
-          }}
-        >
-          {/* Left Content Column */}
-          <Grid item xs={12} md={8}>
-            <Box
-              sx={{
-                position: "relative",
-                paddingBottom: "50px",
-              }}
-            >
-              {/* Title */}
-              <Typography
-                sx={{
-                  fontSize: "3rem",
-                  fontWeight: "800",
-                  color: "#231f20",
-                  fontFamily: "Nunito Sans",
-                  marginBottom: "16px",
-                  textAlign: "left",
-                  '@media (max-width: 600px)': {
-                    fontSize: "1.4rem",
-                  },
-                }}
-              >
-                {title}
-              </Typography>
+        Finance leaders trust us
+      </Typography>
 
-              {/* Subtitle */}
-              <Typography
-                sx={{
-                  fontSize: "1rem",
-                  color: "#000000",
-                  whiteSpace: "pre-line",
-                  textAlign: "left",
-                  maxWidth: "80%",
-                  fontFamily: "Nunito Sans",
-                  pl: "25px",
-                  '@media (max-width: 600px)': {
-                    maxWidth: "100%",
-                  },
-                }}
-              >
-                {subTitle}
-              </Typography>
+      <Box sx={{ maxWidth: '1200px', margin: '0 auto' }}>
+        {caseStudyData.map((item, index) => (
+          <SlideContainer
+            key={index}
+            style={{ display: index === slideIndex ? 'block' : 'none' }}
+          >
+            <Grid container spacing={3} alignItems="center">
+              <Grid item xs={12} md={6}>
+                <LeftBorderContainer>
+                  <Typography
+                    sx={{
+                      fontSize: '0.9rem',
+                      fontWeight: '500',
+                      color: '#fa0001',
+                      textTransform: 'uppercase',
+                      fontFamily: 'Nunito Sans',
+                      marginBottom: '8px',
+                    }}
+                  >
+                    {item.subTitle}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: '1.8rem',
+                      fontWeight: 'bold',
+                      color: '#231f20',
+                      fontFamily: 'Nunito Sans',
+                      marginBottom: '16px',
+                    }}
+                  >
+                    {item.title}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: '1rem',
+                      color: '#666',
+                      fontFamily: 'Nunito Sans',
+                      marginBottom: '24px',
+                    }}
+                  >
+                    {item.description}
+                  </Typography>
+                </LeftBorderContainer>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <ImageContainer>
+                  <StyledImage src={`${Url}${item.image}`} alt={item.title} />
+                  <OverlayContainer>
+                    <YouTubeIcon
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png"
+                        alt="YouTube"
+                      />
+                    </YouTubeIcon>
+                  </OverlayContainer>
+                </ImageContainer>
+              </Grid>
+            </Grid>
+          </SlideContainer>
+        ))}
 
-              {/* Description */}
-              <Typography
-                sx={{
-                  fontSize: "1.1rem",
-                  fontWeight: "bold",
-                  color: "#000000",
-                  fontFamily: "Nunito Sans",
-                  textAlign: "left",
-                  maxWidth: "80%",
-                  padding: "10px 25px",
-                  position: "relative",
-                  '@media (max-width: 600px)': {
-                    maxWidth: "100%",
-                    fontSize: "1rem",
-                  },
-                  "::before": {
-                    content: '""',
-                    position: "absolute",
-                    left: 0,
-                    top: "-15px",
-                    height: "90px",
-                    width: "8px",
-                    backgroundColor: "#fa0001",
-                  },
-                }}
-              >
-                {description}
-              </Typography>
-            </Box>
-          </Grid>
-
-          {/* Right Image Column */}
-          <Grid item xs={12} md={4}>
-            <Box
-              sx={{
-                width: "100%",
-                height: "350px",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              {/* Make the image clickable */}
-              <a href={url} target="_blank" rel="noopener noreferrer">
-                <img
-                  src={`${Url}${image}`}
-                  alt={title}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    cursor: 'pointer', // Change the cursor to pointer to show it's clickable
-                  }}
-                />
-              </a>
-            </Box>
-          </Grid>
-        </Grid>
-
-        {/* URL Link below the image */}
-        {/* {url && (
-          <Box sx={{ mt: 3 }}>
-            <a
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                color: "#034EA2",
-                textDecoration: "underline",
-                fontSize: "1.2rem",
-              }}
-            >
-              Visit Link
-            </a>
-          </Box>
-        )} */}
+        <ProgressContainer>
+          {progress.map((value, index) => (
+            <ProgressBar
+              key={index}
+              onClick={() => handleProgressClick(index)}
+              active={index === slideIndex}
+              progress={index === slideIndex ? `${value}%` : '0%'}
+            />
+          ))}
+        </ProgressContainer>
       </Box>
-    </Maindiv>
+    </StyledSection>
   );
 };
 
 export default MediaContent;
 
-const Maindiv = styled.section`
-  padding: 75px 0;
-  @media screen and (max-width: 600px){
-    padding: 40px 0;
+// Styled Components
+const StyledSection = styled.section`
+  padding: 60px 20px;
+  background-color: #ffffff;
+  overflow: hidden;
+
+  @media screen and (max-width: 600px) {
+    padding: 40px 20px;
+  }
+`;
+
+const SlideContainer = styled.div`
+  margin-bottom: 20px;
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+`;
+
+const StyledImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+const OverlayContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px; /* Spacing between YouTube logo and red line */
+`;
+
+const YouTubeIcon = styled.a`
+  display: inline-block;
+  text-decoration: none;
+
+  img {
+    height: 48px; /* Adjust size as needed */
+    width: 68px;
+  }
+`;
+
+const ProgressContainer = styled.div`
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 24px;
+`;
+
+const ProgressBar = styled.div`
+  width: 64px;
+  height: 4px;
+  background-color: #d1d3d4;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: ${(props) => props.progress};
+    background-color: ${(props) => (props.active ? '#034EA2' : 'transparent')};
+    transition: width 0.05s linear;
+  }
+`;
+
+// Add this new component for the left border
+const LeftBorderContainer = styled.div`
+  position: relative;
+  padding-left: 16px; /* Space between text and the line */
+  border-left: 8px solid #fa0001; /* Pink left border */
+  margin-bottom: 16px;
+
+  @media (max-width: 600px) {
+    border-left: 3px solid #fa0001; /* Adjust thickness for smaller screens */
+    padding-left: 12px;
   }
 `;

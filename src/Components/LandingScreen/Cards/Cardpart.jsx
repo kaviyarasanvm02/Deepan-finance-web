@@ -53,13 +53,14 @@ const Maindiv = styled.section`
 
   .carousel-indicators {
     bottom: -55px;
-    z-index: 10; /* Ensure indicators are accessible */
+    z-index: 10; 
+    //  background-color: #d1d3d4;
   }
 
   .carousel-indicators [data-bs-target] {
     width: 40px;
     height: 6px;
-    background-color: #0539a5;
+    background-color: #034EA2;
   }
 `;
 

@@ -8,12 +8,11 @@ import { instance } from "../../utils/api";
 export default function Aboutss() {
   const [successOpen, setSuccessOpen] = useState(false);
   const [failureOpen, setFailureOpen] = useState(false);
-  const [aboutData, setAboutData] = useState({ title: "", description: "" });
+  const [aboutData, setAboutData] = useState({ id: null, title: "", description: "" });
 
   const [tempAboutData, setTempAboutData] = useState([]);
-  console.log(tempAboutData);
-  console.log("aboutData", aboutData); 
 
+  // Create new About data
   const createAboutData = async () => {
     try {
       await instance.post(`/landing/admin/About`, {
@@ -23,25 +22,27 @@ export default function Aboutss() {
       await getAboutData();
       setSuccessOpen(true);
     } catch (error) {
-      console.error("Error updating about:", error);
+      console.error("Error creating about:", error.response?.data || error.message);
       setFailureOpen(true);
     }
   };
 
-  const updateAboutData = async (e) => {
+  // Update existing About data
+  const updateAboutData = async () => {
     try {
-      await instance.put(`/landing/admin/About/1`, {
+      await instance.put(`/landing/admin/About/${aboutData.id}`, {
         title: aboutData.title,
         description: aboutData.description,
       });
       await getAboutData();
       setSuccessOpen(true);
     } catch (error) {
-      console.error("Error updating about:", error);
+      console.error("Error updating about:", error.response?.data || error.message);
       setFailureOpen(true);
     }
   };
 
+  // Handle form changes
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setAboutData((prev) => ({
@@ -50,26 +51,30 @@ export default function Aboutss() {
     }));
   };
 
+  // Fetch about data
+  const getAboutData = async () => {
+    try {
+      const response = await instance.get(`/landing/admin/About`);
+      if (response.status === 200) {
+        const data = response.data[0] || { id: null, title: "", description: "" };
+        setAboutData(data);
+        setTempAboutData(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching about data:", error.response?.data || error.message);
+    }
+  };
+
   // Close popups
   const handleClose = () => {
     setSuccessOpen(false);
     setFailureOpen(false);
   };
-  const getAboutData = async () => {
-    try {
-      const response = await instance.get(`/landing/admin/About`);
-      if (response.status === 200) {
-        setAboutData(response.data[0] || { title: "", description: "" });
-        setTempAboutData(response.data);
-      }
-    } catch (error) {
-      console.error("Error fetching about data:", error);
-    }
-  };
 
   useEffect(() => {
     getAboutData();
   }, []);
+
   return (
     <AdminContentPart>
       <Grid container spacing={3}>
@@ -107,7 +112,7 @@ export default function Aboutss() {
           </Grid>
           <Grid container justifyContent="flex-start" className="my-5">
             <Grid item>
-              {aboutData.title === "" && aboutData.description === "" ? (
+              {aboutData.id === null ? (
                 <SubmitButton type="submit" onClick={createAboutData}>
                   Create
                 </SubmitButton>
@@ -128,7 +133,7 @@ export default function Aboutss() {
       />
       <FailurePopup
         open={failureOpen}
-        message="Form submission failed. Please fill all required fields."
+        message="Something went wrong. Please try again!"
         onClose={handleClose}
       />
     </AdminContentPart>
@@ -142,19 +147,19 @@ const AdminContentPart = styled.div`
 `;
 
 const SubmitButton = styled.button`
-color: #fff;
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 10px 10px;
-    border: 1px solid;
-    margin: 10px 15px;
-    text-align: center;
-    width: 10rem;
-    cursor: pointer;
-    background:rgb(225, 35, 35);
-    transition: all 0.5s ease-in-out;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 10px 10px;
+  border: 1px solid;
+  margin: 10px 15px;
+  text-align: center;
+  width: 10rem;
+  cursor: pointer;
+  background: rgb(225, 35, 35);
+  transition: all 0.5s ease-in-out;
 
   &:hover {
-    background-color: #0056b3;
-  }
+    background-color: #0056b3;
+  }
 `;

@@ -1,23 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import styled from "styled-components";
 import { Container, Row, Col } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 
 const Reviews = ({ data }) => {
-  // Extract reviews array from the provided data
-  const reviews = data?.reviewData || []; // Use data.reviewData if available, fallback to an empty array
+  const reviews = data?.reviewData || [];
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [progress, setProgress] = useState([]);
+
+  // Initialize progress bars
+  useEffect(() => {
+    if (reviews.length) {
+      setProgress(new Array(reviews.length).fill(0));
+    }
+  }, [reviews.length]);
+
+  // Handle progress bar animation
+  useEffect(() => {
+    if (!reviews.length) return;
+
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        const newProgress = [...prevProgress];
+        newProgress[slideIndex] += 1;
+
+        if (newProgress[slideIndex] >= 100) {
+          const resetProgress = new Array(reviews.length).fill(0);
+          const nextIndex = (slideIndex + 1) % reviews.length;
+          setSlideIndex(nextIndex);
+          return resetProgress;
+        }
+        return newProgress;
+      });
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, [slideIndex, reviews.length]);
+
+  const handleProgressClick = (index) => {
+    setSlideIndex(index);
+    setProgress(new Array(reviews.length).fill(0));
+  };
 
   return (
-    <Maindiv id="Reviews">
+    <Maindiv id="investor">
       <Container>
         <Row>
           <Col md={12}>
-            <Carousel>
+            <Carousel activeIndex={slideIndex} onSelect={setSlideIndex}>
               {reviews.map((review, key) => {
                 const titleLength = review.title ? review.title.length : 0;
-
-                // Dynamically adjust quote size based on title length
                 const dynamicQuoteFontSize =
                   titleLength > 250 ? "80px" : "100px";
 
@@ -39,76 +72,67 @@ const Reviews = ({ data }) => {
                         sx={{
                           maxWidth: "800px",
                           width: "100%",
-                          margin: "0 auto", // Center the content horizontally
+                          margin: "0 auto",
                           textAlign: "start",
                         }}
                       >
-                        {/* Review Opening Quote */}
                         <Typography
                           sx={{
                             fontSize: dynamicQuoteFontSize,
                             fontWeight: "bold",
                             color: "#034EA2",
                             lineHeight: "1",
-                            marginBottom: "-10px", // Reduce gap between quote and title
+                            marginBottom: "-10px",
                             textAlign: "left",
                           }}
                         >
                           “
                         </Typography>
-
-                        {/* Review Title */}
                         <Typography
                           sx={{
                             fontSize: "20px",
                             fontWeight: "bold",
                             color: "#231f20",
-                            marginBottom: "8px", // Adjust spacing
+                            marginBottom: "8px",
                             whiteSpace: "pre-line",
                             paddingLeft: "40px",
                           }}
                         >
-                          {review.description || "Title not found"}
+                          {review.title || "Title not found"}
                         </Typography>
-
-                        {/* Review Closing Quote */}
                         <Typography
                           sx={{
                             fontSize: dynamicQuoteFontSize,
                             fontWeight: "bold",
                             color: "#034EA2",
                             lineHeight: "1",
-                            marginTop: "-10px", // Reduce gap
-                            textAlign: "right", // Align to the end
+                            marginTop: "-10px",
+                            textAlign: "right",
                           }}
                         >
                           ”
                         </Typography>
-
-                        {/* Review Subtitle */}
                         <Typography
                           sx={{
                             fontSize: "15px",
                             fontWeight: "bold",
                             color: "#231f20",
-                            marginBottom: "8px", // Adjust spacing
+                            marginBottom: "8px",
                             whiteSpace: "pre-line",
                             paddingLeft: "40px",
                           }}
                         >
                           {review.subTitle || "Subtitle not found"}
                         </Typography>
-
-                        {/* Review Description */}
                         <Typography
                           sx={{
-                            fontSize: "13px", 
+                            fontSize: "13px",
                             color: "#231f20",
                             whiteSpace: "pre-line",
                             paddingLeft: "40px",
                           }}
                         >
-                          {review.title || "Description not found"}
+                          {review.description || "Description not found"}
                         </Typography>
                       </Grid>
                     </Box>
@@ -116,6 +140,17 @@ const Reviews = ({ data }) => {
                 );
               })}
             </Carousel>
+            {/* Progress Bars */}
+            <ProgressContainer>
+              {progress.map((value, index) => (
+                <ProgressBar
+                  key={index}
+                  onClick={() => handleProgressClick(index)}
+                  active={index === slideIndex}
+                  progress={index === slideIndex ? `${value}%` : "0%"}
+                />
+              ))}
+            </ProgressContainer>
           </Col>
         </Row>
       </Container>
@@ -131,5 +166,32 @@ const Maindiv = styled.section`
 
   @media screen and (max-width: 600px) {
     padding: 40px 0;
+  }
+`;
+
+const ProgressContainer = styled.div`
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 24px;
+`;
+
+const ProgressBar = styled.div`
+  width: 64px;
+  height: 4px;
+  background-color: #d1d3d4;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: ${(props) => props.progress};
+    background-color: ${(props) => (props.active ? "#034EA2" : "transparent")};
+    transition: width 0.05s linear;
   }
 `;

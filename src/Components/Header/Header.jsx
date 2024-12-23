@@ -42,7 +42,7 @@ export default function Header() {
                   <NavDropdown.Item href="#responsibility">Leadership team profiles</NavDropdown.Item>
                 </NavDropdown> */}
                 <Nav.Link href="#investor">Investor Relationship</Nav.Link>
-                <Nav.Link href="#latestnews">News</Nav.Link>
+                <Nav.Link href="#media">News</Nav.Link>
                 {/* <NavDropdown title="Career" id="basic-nav-dropdown">
                   <NavDropdown.Item href="#what-we-do">What We Do</NavDropdown.Item>
                   <NavDropdown.Item href="#career">Career</NavDropdown.Item>

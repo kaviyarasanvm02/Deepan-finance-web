@@ -11,7 +11,7 @@ import FailurePopup from "./Failurepop";
 
 export default function Loginform() {
   const [formData, setFormData] = useState({
-    username: "",
+    email: "", // Use 'email' instead of 'username'
     password: "",
   });
 
@@ -26,24 +26,19 @@ export default function Loginform() {
     });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      location.pathname === "/AdminLogin" ||
-      location.pathname === "/adminlogin"
-    ) {
+    if (location.pathname.toLowerCase() === "/adminlogin") {
       try {
-        const response = await instance.post("/login",formData);
+        const response = await instance.post("/login", formData);
         cookies.set("user", JSON.stringify(response.data));
-        SuccessPopup("Success");
-        handleNavigate();
+        SuccessPopup("Login successful!");
+        navigate("/admin/slider");
       } catch (error) {
-        FailurePopup(error.response.data.message);
+        const errorMsg = error.response?.data?.message || "Login failed!";
+        FailurePopup(errorMsg);
       }
     }
-  };
-  const handleNavigate = () => {
-    navigate("/AdminDashboard/Slider");
   };
 
   return (
@@ -54,13 +49,13 @@ export default function Loginform() {
           <Col md={6} xs={12}>
             <Rightimg>
               <img src={Loginimg} alt="login-img" />
-              <form onSubmit={(e) => handleSubmit(e)} class="login">
+              <form onSubmit={handleSubmit} className="login">
                 <h2>Deepan Login</h2>
                 <Input
-                  type="text"
-                  name="username"
-                  placeholder="Username"
-                  value={formData.username}
+                  type="email"
+                  name="email" // Updated to 'email'
+                  placeholder="Email"
+                  value={formData.email}
                   onChange={handleChange}
                 />
                 <Input
@@ -81,6 +76,7 @@ export default function Loginform() {
     </LoginContainer>
   );
 }
+
 
 // Styled Components
 const LoginContainer = styled.div`

@@ -49,7 +49,7 @@ export default function App() {
             </>
           }
         />
-        {/* <Route path="/adminlogin" element={<Loginform />} /> */}
+        <Route path="/adminlogin" element={<Loginform />} />
         {/* Admin Site Routes */}
         <Route path="/admin" element={<Admin />}>
           {/* Nested routes must use relative paths */}
