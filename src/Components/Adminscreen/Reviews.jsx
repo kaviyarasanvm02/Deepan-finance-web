@@ -175,24 +175,25 @@ export default function Reviews() {
         </Box>
       </Dialog>
       <Grid container spacing={4} sx={{ marginTop: 2 }}>
-        {reviewDetailsData.map((review) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={review.id}>
-            <Card>
-              <Card.Body>
-                <Card.Title>{review.title}</Card.Title>
-                <Card.Subtitle>{review.subTitle}</Card.Subtitle>
-                <Card.Text>{review.description}</Card.Text>
-                <Editbtn
-                  aria-label="Edit Review"
-                  onClick={() => handleOpenEditModal(review.id)}
-                >
-                  <MdEdit />
-                </Editbtn>
-              </Card.Body>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+  {reviewDetailsData.map((review) => (
+    <Grid item xs={12} sm={6} md={4} lg={3} key={review.id}>
+      <StyledCard>
+        <StyledCardBody>
+          <Card.Title>{review.title}</Card.Title>
+          <Card.Subtitle>{review.subTitle}</Card.Subtitle>
+          <Card.Text>{review.description}</Card.Text>
+          <Editbtn
+            aria-label="Edit Review"
+            onClick={() => handleOpenEditModal(review.id)}
+          >
+            <MdEdit />
+          </Editbtn>
+        </StyledCardBody>
+      </StyledCard>
+    </Grid>
+  ))}
+</Grid>
+
       <SuccessPopup open={successOpen} message="Form submitted successfully!" onClose={handleClose} />
       <FailurePopup open={failureOpen} message="Form submission failed. Please try again." onClose={handleClose} />
     </AdminContentPart>
@@ -233,4 +234,21 @@ const Editbtn = styled.button`
   &:hover {
     background-color: #013396;
   }
+`;
+const StyledCard = styled(Card)`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+`;
+
+const StyledCardBody = styled(Card.Body)`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
 `;
