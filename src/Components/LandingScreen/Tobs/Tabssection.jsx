@@ -1,19 +1,14 @@
-import React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import styled from 'styled-components';
-import { Container, Row, Col } from 'react-bootstrap';
-import Tabcontentbox from './Tabcontentbox';
-import Accordion from 'react-bootstrap/Accordion';
+import React from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import styled from "styled-components";
+import { Container, Row, Col } from "react-bootstrap";
+import Tabcontentbox from "./Tabcontentbox";
+import Accordion from "react-bootstrap/Accordion";
+import backImage from "../../../assets/top-view-piggy-bank-money.jpg";
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;       
-}
-
-function CustomTabPanel(props: TabPanelProps) {
+function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -29,10 +24,10 @@ function CustomTabPanel(props: TabPanelProps) {
   );
 }
 
-function a11yProps(index: number) {
+function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -41,43 +36,97 @@ const tabData = [
   {
     label: "Who We Serve",
     content: [
-      { title: "Investment Consultancy",
-         description: "Comprehensive wealth management services for individuals and businesses" },
-      { title: "Equities",
-         description: "Short Term Less than 1 year,Medium Term 1 to 5 years,Long Term above 5 years" },
-      { title: "Our team", 
-        description: "Our team suggest Right stocks @ Right price @ Right time to optimise return on investments including multi bagger which delivers 500% + returns" },
-        { title: "Mutual funds",
-          description: "Investing every month on chosen funds direct from auto debit from our bank" },
-       { title: "Lumpsum",
-          description: "One time Investment any time when we have surplus funds ,Systematic Withdraw Plan (SWP)" },
-       { title: "Our Team assists", 
-         description: "RBI Treasury Bills 90 days /180 days / 364 days @ 6.3% p.a,Corporate Bonds from 8% to 10.5% p.a" },
+      {
+        title: "Investment Consultancy",
+        description:
+          "Comprehensive wealth management services for individuals and businesses",
+      },
+      {
+        title: "Equities",
+        description:
+          "Short Term Less than 1 year,Medium Term 1 to 5 years,Long Term above 5 years",
+      },
+      {
+        title: "Our team",
+        description:
+          "Our team suggest Right stocks @ Right price @ Right time to optimise return on investments including multi bagger which delivers 500% + returns",
+      },
+      {
+        title: "Mutual funds",
+        description:
+          "Investing every month on chosen funds direct from auto debit from our bank",
+      },
+      {
+        title: "Lumpsum",
+        description:
+          "One time Investment any time when we have surplus funds ,Systematic Withdraw Plan (SWP)",
+      },
+      {
+        title: "Our Team assists",
+        description:
+          "RBI Treasury Bills 90 days /180 days / 364 days @ 6.3% p.a,Corporate Bonds from 8% to 10.5% p.a",
+      },
     ],
   },
   {
     label: "What We Do",
     content: [
-      { title: "Full time career opportunities", description: "Swing Trading, Day trading & Option strategies" },
-      { title: "Second Income opportunities", description: "Swing Trading, Day trading & Option strategies" },
-      { title: "Algo Trading Solutions", description: "Semi & Fully automated trading systems" },
+      {
+        title: "Full time career opportunities",
+        description: "Swing Trading, Day trading & Option strategies",
+      },
+      {
+        title: "Second Income opportunities",
+        description: "Swing Trading, Day trading & Option strategies",
+      },
+      {
+        title: "Algo Trading Solutions",
+        description: "Semi & Fully automated trading systems",
+      },
     ],
   },
   {
     label: "How We Deliver",
     content: [
-      { title: "Training", description: "Accelerate impact and build trust with deep industry context" },
-      { title: "Choosing Right stock list", description: "Accelerate impact and build trust with Money" },
-      { title: "Value investing for Wealth ", description: "Grow revenue, enhance customer experience and augment teams with a modern go-to-market model" },
+      {
+        title: "Training",
+        description:
+          "Accelerate impact and build trust with deep industry context",
+      },
+      {
+        title: "Choosing Right stock list",
+        description: "Accelerate impact and build trust with Money",
+      },
+      {
+        title: "Value investing for Wealth ",
+        description:
+          "Grow revenue, enhance customer experience and augment teams with a modern go-to-market model",
+      },
     ],
   },
   {
     label: "How We Are Different",
     content: [
-      { title: "Zero Office Expense", description: "No overhead costs—start earning without the need for physical office space." },
-      { title: "High Revenue Sharing", description: "Maximize your profits with our competitive and rewarding revenue-sharing model." },
-      { title: "Dedicated Training", description: "We ensure your success with tailored training and full support from industry experts." },
-      { title: "Marketing & Branding Support", description: "Amplify your reach with our proven marketing strategies and brand resources to boost your visibility." },
+      {
+        title: "Zero Office Expense",
+        description:
+          "No overhead costs—start earning without the need for physical office space.",
+      },
+      {
+        title: "High Revenue Sharing",
+        description:
+          "Maximize your profits with our competitive and rewarding revenue-sharing model.",
+      },
+      {
+        title: "Dedicated Training",
+        description:
+          "We ensure your success with tailored training and full support from industry experts.",
+      },
+      {
+        title: "Marketing & Branding Support",
+        description:
+          "Amplify your reach with our proven marketing strategies and brand resources to boost your visibility.",
+      },
     ],
   },
 ];
@@ -85,36 +134,42 @@ const tabData = [
 export default function Tabscontent() {
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <Maindiv>
+    <Maindiv image={backImage}>
       <Container>
         <Largescreentabs>
-          <Box sx={{ width: '100%' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" variant="scrollable" scrollButtons="auto">
+          <Box sx={{ width: "100%" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+              variant="scrollable"
+              scrollButtons="auto"
+            >
               {tabData.map((tab, index) => (
                 <Tab
                   key={index}
                   label={tab.label}
                   {...a11yProps(index)}
                   sx={{
-                    border: '1px solid #013396',
-                    padding: '10px 30px',
-                    margin: '0 10px',
-                    color: "#013396",
-                    backgroundColor: 'transparent',
+                    border: "1px solid #23395d;",
+                    padding: "10px 30px",
+                    margin: "0 10px",
+                    color: " #23395d;",
+                    backgroundColor: "transparent",
                     fontSize: "20px",
                     fontWeight: "800",
                     transition: "all 0.5s ease-in-out",
-                    '&:hover': {
-                      backgroundColor: '#013396',
+                    "&:hover": {
+                      backgroundColor: " #23395d;",
                       color: "#fff",
                     },
-                    '&.Mui-selected': {
-                      backgroundColor: '#013396',
+                    "&.Mui-selected": {
+                      backgroundColor: " #23395d;",
                       color: "#fff",
                     },
                   }}
@@ -127,7 +182,27 @@ export default function Tabscontent() {
                 <Row>
                   {tab.content?.map((item, idx) => (
                     <Col key={idx} md={4} lg={4} xl={4}>
-                      <Tabcontentbox title={item.title} description={item.description} />
+                      <Box
+                        sx={{
+                          padding: "10px",
+                          // backgroundImage:
+                          //   "linear-gradient(to right, white, #23395d)",
+                          backgroundColor: "#23395d",
+                          margin: "10px",
+                          color: "white",
+                          borderRadius:"0px 50px",
+                          ":hover": {
+                            border: "10px solid #23395d",
+                            backgroundColor: "white",
+                            color: "#23395d",
+                          },
+                        }}
+                      >
+                        <Tabcontentbox
+                          title={item.title}
+                          description={item.description}
+                        />
+                      </Box>
                     </Col>
                   ))}
                 </Row>
@@ -145,7 +220,27 @@ export default function Tabscontent() {
                   <Row>
                     {tab.content?.map((item, idx) => (
                       <Col key={idx} sm={12} xs={12}>
-                        <Tabcontentbox title={item.title} description={item.description} />
+                        <Box
+                          sx={{
+                            padding: "10px",
+                            // backgroundImage:
+                            // "linear-gradient(to left, white, #23395d)",
+                            backgroundColor: "#23395d",
+                            margin: "10px",
+                            color: "white",
+                            borderRadius:"0px 50px",
+                            ":hover": {
+                              border: "10px solid #23395d",
+                              backgroundColor: "white",
+                              color: "#23395d",
+                            },
+                          }}
+                        >
+                          <Tabcontentbox
+                            title={item.title}
+                            description={item.description}
+                          />
+                        </Box>
                       </Col>
                     ))}
                   </Row>
@@ -154,7 +249,6 @@ export default function Tabscontent() {
             ))}
           </Accordion>
         </Smallscreentabs>
-
       </Container>
     </Maindiv>
   );
@@ -162,9 +256,14 @@ export default function Tabscontent() {
 
 const Maindiv = styled.div`
   padding: 85px 0;
-  background-color: #f7f7f7;
-  
-  @media screen and (max-width: 600px){
+  background-image: ${({ image }) => `url(${image})`};
+  background-size: cover;
+  background-position: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  @media screen and (max-width: 600px) {
     padding: 40px 0;
   }
 `;

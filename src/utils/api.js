@@ -6,5 +6,5 @@ export const BaseUrl = "http://localhost:8080/deepanindia";
 // export const BaseUrl = "http://192.168.0.125:8080/deepanindia";
 
 export const instance = axios.create({
-  baseURL: BaseUrl 
+  baseURL: BaseUrl,
 });

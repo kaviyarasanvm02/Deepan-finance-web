@@ -7,6 +7,9 @@ import Cardpart from "./Cards/Cardpart";
 import Reviews from "./Review/Reviews";
 import MediaContent from "./Latestnews/MediaContent";
 import Tabscontent from "./Tobs/Tabssection";
+import Services from "./Serivces/Services";
+import Choose from "./WhyChoose/Choose";
+import Calculator from "./Calculator/Calculator";
 
 const LandingScreen = () => {
   const [head, setHead] = useState([]);
@@ -23,17 +26,20 @@ const LandingScreen = () => {
         { url: `/landing/customer/Header`, setState: setHead },
         { url: `/landing/customer/About`, setState: setAbout },
         { url: `/landing/customer/Blogs`, setState: setBlogs },
-        { url: `/landing/customer/JoinUs`, setState: (data) => setJoinUs(data.joinUsData) },
+        {
+          url: `/landing/customer/JoinUs`,
+          setState: (data) => setJoinUs(data.joinUsData),
+        },
         { url: `/landing/customer/Reviews`, setState: setReview },
         { url: `/landing/customer/CaseStudy`, setState: setSocialMedia },
       ];
 
-      // Execute all requests in parallel
       const responses = await Promise.all(
-        endpoints.map((endpoint) => instance.get(endpoint.url).catch((err) => err))
+        endpoints.map((endpoint) =>
+          instance.get(endpoint.url).catch((err) => err)
+        )
       );
 
-      // Update states for successful requests
       responses.forEach((response, index) => {
         if (response?.status === 200) {
           const { setState } = endpoints[index];
@@ -56,12 +62,15 @@ const LandingScreen = () => {
   return (
     <>
       <SlideShowBar data={head} />
+      <Choose/>
       <About data={AboutUs} />
-       <Tabscontent />
+      <Tabscontent />
+      <Services/>
       <Cardpart data={Blogs} />
-      <Joiningpart data={JoinUs} />
+     <Joiningpart data={JoinUs} />
       <MediaContent data={media} />
-      <Reviews data={review} />
+      <Calculator/>
+      {/* <Reviews data={review} /> */}
     </>
   );
 };

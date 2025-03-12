@@ -5,7 +5,12 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const SuccessPopup = ({ open, message, onClose }) => {
   return (
-    <Snackbar open={open} autoHideDuration={3000} onClose={onClose} anchorOrigin={{ vertical:"bottom", horizontal:"right"}}>
+    <Snackbar
+      open={open}
+      autoHideDuration={3000}
+      onClose={onClose}
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+    >
       <Alert
         onClose={onClose}
         severity="success"

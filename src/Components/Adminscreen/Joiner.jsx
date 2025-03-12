@@ -8,100 +8,94 @@ import { instance } from "../../utils/api";
 export default function Joiner() {
   const [successOpen, setSuccessOpen] = useState(false);
   const [failureOpen, setFailureOpen] = useState(false);
-  const [formData, setFormData] =useState({
-    title: '',
-    button_name1: '',
-    button_name2: '',
+  const [formData, setFormData] = useState({
+    title: "",
+    button_name1: "",
+    button_name2: "",
   });
-  const [joinData,setJoinData] = useState(null);
-    const [imageFile, setImageFile] = useState(null);
-  
+  const [joinData, setJoinData] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
-    const handleFormChange = (e) => {
-      const { name, value } = e.target;
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    };
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+  };
 
-    const handleImageChange = (e) => {
-      const file = e.target.files[0];
-      setImageFile(file);
-    };
+  const getJoinUS = async () => {
+    try {
+      const response = await instance.get(`/landing/admin/JoinUs`);
+      if (response.status === 200 && response.data.length > 0) {
+        setJoinData(response.data[0]);
+        setFormData(response.data[0]);
+      } else {
+        setJoinData(null);
+      }
+    } catch (error) {
+      console.error("Error fetching JoinUs data:", error);
+    }
+  };
 
-    const getJoinUS = async () => {
-        try {
-          const response = await instance.get(`/landing/admin/JoinUs`);
-          if (response.status === 200 && response.data.length > 0) {
-            setJoinData(response.data[0]); 
-            setFormData(response.data[0]); 
-          } else {
-            setJoinData(null); 
-          }
-        } catch (error) {
-          console.error('Error fetching JoinUs data:', error);
-        }
-      };
-    
+  const createJoinUs = async (e) => {
+    e.preventDefault();
+    try {
+      const data = new FormData();
+      data.append("title", formData.title);
+      data.append("button_name1", formData.button_name1);
+      data.append("button_name2", formData.button_name2);
+      if (imageFile) data.append("image", imageFile);
 
-      const createJoinUs = async (e) => {
-        e.preventDefault();
-        try {
-          const data = new FormData();
-          data.append('title', formData.title);
-          data.append('button_name1', formData.button_name1);
-          data.append('button_name2', formData.button_name2);
-          if (imageFile) data.append('image', imageFile);
-    
-          await instance.post(`/landing/admin/JoinUs`, data, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-          });
-    
-          await getJoinUS(); 
-          setSuccessOpen(true);
-        } catch (error) {
-          console.error('Error creating JoinUs:', error);
-          setFailureOpen(true);
-        }
-      };
-    
-    
-      const updateJoinUs = async (e) => {
-        e.preventDefault();
-        try {
-          const data = new FormData();
-          data.append('title', formData.title);
-          data.append('button_name1', formData.button_name1);
-          data.append('button_name2', formData.button_name2);;
-          if (imageFile) data.append('image', imageFile);
-    
-          await instance.put(`/landing/admin/JoinUs/1`, data, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-          });
-    
-          await getJoinUS(); 
-          setSuccessOpen(true);
-        } catch (error) {
-          console.error('Error updating header:', error);
-          setFailureOpen(true);
-        }
-      };
-    
+      await instance.post(`/landing/admin/JoinUs`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
-      const handleSubmit = (e) => {
-        if (joinData) {
-          updateJoinUs(e);
-        } else {
-          createJoinUs(e);
-        }
-      };
+      await getJoinUS();
+      setSuccessOpen(true);
+    } catch (error) {
+      console.error("Error creating JoinUs:", error);
+      setFailureOpen(true);
+    }
+  };
 
-        useEffect(() => {
-          getJoinUS();
-        }, []);
+  const updateJoinUs = async (e) => {
+    e.preventDefault();
+    try {
+      const data = new FormData();
+      data.append("title", formData.title);
+      data.append("button_name1", formData.button_name1);
+      data.append("button_name2", formData.button_name2);
+      if (imageFile) data.append("image", imageFile);
 
+      await instance.put(`/landing/admin/JoinUs/1`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      await getJoinUS();
+      setSuccessOpen(true);
+    } catch (error) {
+      console.error("Error updating header:", error);
+      setFailureOpen(true);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    if (joinData) {
+      updateJoinUs(e);
+    } else {
+      createJoinUs(e);
+    }
+  };
+
+  useEffect(() => {
+    getJoinUS();
+  }, []);
 
   // Close popups
   const handleClose = () => {
@@ -162,8 +156,8 @@ export default function Joiner() {
             </Grid>
             <Grid container justifyContent="flex-start" className="my-5">
               <Grid item>
-              <SubmitButton type="submit">
-                  {joinData ? 'Update' : 'Create'}
+                <SubmitButton type="submit">
+                  {joinData ? "Update" : "Create"}
                 </SubmitButton>
               </Grid>
             </Grid>

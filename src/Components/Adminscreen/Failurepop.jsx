@@ -5,7 +5,12 @@ import ErrorIcon from "@mui/icons-material/Error";
 
 const FailurePopup = ({ open, message, onClose }) => {
   return (
-    <Snackbar open={open} autoHideDuration={3000} onClose={onClose} anchorOrigin={{ vertical:"bottom", horizontal:"right"}}>
+    <Snackbar
+      open={open}
+      autoHideDuration={3000}
+      onClose={onClose}
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+    >
       <Alert
         onClose={onClose}
         severity="error"

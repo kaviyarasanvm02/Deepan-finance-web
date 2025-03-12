@@ -52,7 +52,6 @@ const TextContainer = ({
   const truncatedText = showReadMore ? value : value?.slice(0, maxChars);
   // const truncatedText = showReadMore ? value : value?.slice(0, 150);
 
-
   return (
     <Typography
       className={className}

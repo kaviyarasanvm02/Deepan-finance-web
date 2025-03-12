@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, Card } from "@mui/material";
 import styled from "styled-components";
+import Rating from "@mui/material/Rating";
 import { Container, Row, Col } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 
@@ -49,45 +50,21 @@ const Reviews = ({ data }) => {
         <Row>
           <Col md={12}>
             <Carousel activeIndex={slideIndex} onSelect={setSlideIndex}>
-              {reviews.map((review, key) => {
-                const titleLength = review.title ? review.title.length : 0;
-                const dynamicQuoteFontSize =
-                  titleLength > 250 ? "80px" : "100px";
-
-                return (
-                  <Carousel.Item key={key}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        position: "relative",
-                        padding: "20px",
-                        fontFamily: "Nunito Sans",
-                      }}
-                    >
-                      <Grid
-                        container
-                        direction="column"
-                        sx={{
-                          maxWidth: "800px",
-                          width: "100%",
-                          margin: "0 auto",
-                          textAlign: "start",
-                        }}
-                      >
-                        <Typography
-                          sx={{
-                            fontSize: dynamicQuoteFontSize,
-                            fontWeight: "bold",
-                            color: "#034EA2",
-                            lineHeight: "1",
-                            marginBottom: "-10px",
-                            textAlign: "left",
-                          }}
-                        >
-                          “
-                        </Typography>
+              {reviews.map((review, key) => (
+                <Carousel.Item key={key}>
+                  <Grid
+                    container
+                    spacing={5}
+                    sx={{
+                      width: "100%",
+                      overflow: "hidden",
+                      transition: "0.9s",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Grid item xs={12} md={3}>
+                      <CardBox>
                         <Typography
                           sx={{
                             fontSize: "20px",
@@ -102,18 +79,6 @@ const Reviews = ({ data }) => {
                         </Typography>
                         <Typography
                           sx={{
-                            fontSize: dynamicQuoteFontSize,
-                            fontWeight: "bold",
-                            color: "#034EA2",
-                            lineHeight: "1",
-                            marginTop: "-10px",
-                            textAlign: "right",
-                          }}
-                        >
-                          ”
-                        </Typography>
-                        <Typography
-                          sx={{
                             fontSize: "15px",
                             fontWeight: "bold",
                             color: "#231f20",
@@ -124,22 +89,23 @@ const Reviews = ({ data }) => {
                         >
                           {review.subTitle || "Subtitle not found"}
                         </Typography>
-                        <Typography
-                          sx={{
-                            fontSize: "13px",
-                            color: "#231f20",
-                            whiteSpace: "pre-line",
-                            paddingLeft: "40px",
-                          }}
-                        >
+                        <Rating
+                          name="half-rating"
+                          defaultValue={2.5}
+                          precision={0.5}
+                          sx={{ padding: "10px 0px 10px 0px" }}
+                        />
+                        <CustomTypography3>
                           {review.description || "Description not found"}
-                        </Typography>
-                      </Grid>
-                    </Box>
-                  </Carousel.Item>
-                );
-              })}
+                        </CustomTypography3>
+                        <CustomTypography4>Read More</CustomTypography4>
+                      </CardBox>
+                    </Grid>
+                  </Grid>
+                </Carousel.Item>
+              ))}
             </Carousel>
+
             {/* Progress Bars */}
             <ProgressContainer>
               {progress.map((value, index) => (
@@ -160,6 +126,7 @@ const Reviews = ({ data }) => {
 
 export default Reviews;
 
+/* Styled Components */
 const Maindiv = styled.section`
   padding: 75px 0;
   background-color: #f9f9f9;
@@ -193,5 +160,35 @@ const ProgressBar = styled.div`
     width: ${(props) => props.progress};
     background-color: ${(props) => (props.active ? "#034EA2" : "transparent")};
     transition: width 0.05s linear;
+  }
+`;
+
+const CardBox = styled(Card)`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  width: 250px;
+`;
+
+const CustomTypography3 = styled(Typography)`
+  && {
+    font-size: 12px;
+    font-weight: 400;
+    color: #0c0c0c;
+    text-align: left;
+    margin-top: 10px;
+  }
+`;
+
+const CustomTypography4 = styled(Typography)`
+  && {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #807777;
+    text-align: left;
+    cursor: pointer;
   }
 `;

@@ -8,7 +8,11 @@ import { instance } from "../../utils/api";
 export default function Aboutss() {
   const [successOpen, setSuccessOpen] = useState(false);
   const [failureOpen, setFailureOpen] = useState(false);
-  const [aboutData, setAboutData] = useState({ id: null, title: "", description: "" });
+  const [aboutData, setAboutData] = useState({
+    id: null,
+    title: "",
+    description: "",
+  });
 
   const [tempAboutData, setTempAboutData] = useState([]);
 
@@ -22,7 +26,10 @@ export default function Aboutss() {
       await getAboutData();
       setSuccessOpen(true);
     } catch (error) {
-      console.error("Error creating about:", error.response?.data || error.message);
+      console.error(
+        "Error creating about:",
+        error.response?.data || error.message
+      );
       setFailureOpen(true);
     }
   };
@@ -37,7 +44,10 @@ export default function Aboutss() {
       await getAboutData();
       setSuccessOpen(true);
     } catch (error) {
-      console.error("Error updating about:", error.response?.data || error.message);
+      console.error(
+        "Error updating about:",
+        error.response?.data || error.message
+      );
       setFailureOpen(true);
     }
   };
@@ -56,12 +66,19 @@ export default function Aboutss() {
     try {
       const response = await instance.get(`/landing/admin/About`);
       if (response.status === 200) {
-        const data = response.data[0] || { id: null, title: "", description: "" };
+        const data = response.data[0] || {
+          id: null,
+          title: "",
+          description: "",
+        };
         setAboutData(data);
         setTempAboutData(response.data);
       }
     } catch (error) {
-      console.error("Error fetching about data:", error.response?.data || error.message);
+      console.error(
+        "Error fetching about data:",
+        error.response?.data || error.message
+      );
     }
   };
 
