@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { TextField, Grid, Box, Button, Dialog } from "@mui/material";
 import { MdEdit } from "react-icons/md";
 import { instance } from "../../utils/api";
-import Card from 'react-bootstrap/Card';
+import Card from "react-bootstrap/Card";
 
 export default function Socialmedia() {
   const [successOpen, setSuccessOpen] = useState(false);
@@ -147,7 +147,13 @@ export default function Socialmedia() {
 
   return (
     <AdminContentPart>
-      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+        }}
+      >
         <Button variant="outlined" onClick={handleOpen} disabled={cardOpen}>
           Add Media
         </Button>
@@ -204,8 +210,16 @@ export default function Socialmedia() {
                   />
                 </Grid>
               </Grid>
-              <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: 2 }}>
-                <SubmitButton type="submit">{editingCardId ? "Update" : "Save"}</SubmitButton>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: 2,
+                }}
+              >
+                <SubmitButton type="submit">
+                  {editingCardId ? "Update" : "Save"}
+                </SubmitButton>
                 <SubmitButton type="button" onClick={() => setCardOpen(false)}>
                   Cancel
                 </SubmitButton>
@@ -215,34 +229,67 @@ export default function Socialmedia() {
         </Dialog>
       </Box>
 
-      <Grid container spacing={4} sx={{ marginTop: 2, display: "flex", alignItems: "stretch" }}>
-  {socialData.map((card) => (
-    <Grid item xs={12} sm={6} md={4} lg={3} key={card.id} style={{ display: "flex" }}>
-      <Card style={{ width: "100%", display: "flex", flexDirection: "column", minHeight: "300px" }}>
-        <img
-          src={card.image}
-          alt={card.title}
-          style={{
-            width: "100%",
-            height: "200px",
-            objectFit: "cover",
-          }}
-        />
-        <Card.Body style={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-          <Card.Title>{card.subTitle}</Card.Title>
-          <Card.Text>{card.description}</Card.Text>
-          <Editbtn onClick={() => handleOpenEditModal(card.id)}>
-            <MdEdit />
-          </Editbtn>
-        </Card.Body>
-      </Card>
-    </Grid>
-  ))}
-</Grid>
+      <Grid
+        container
+        spacing={4}
+        sx={{ marginTop: 2, display: "flex", alignItems: "stretch" }}
+      >
+        {socialData.map((card) => (
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            key={card.id}
+            style={{ display: "flex" }}
+          >
+            <Card
+              style={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "300px",
+              }}
+            >
+              <img
+                src={card.image}
+                alt={card.title}
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                }}
+              />
+              <Card.Body
+                style={{
+                  flexGrow: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Card.Title>{card.subTitle}</Card.Title>
+                <Card.Text>{card.description}</Card.Text>
+                <Editbtn onClick={() => handleOpenEditModal(card.id)}>
+                  <MdEdit />
+                </Editbtn>
+              </Card.Body>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
 
-
-      <SuccessPopup open={successOpen} message="Form submitted successfully!" onClose={handleClose} />
-      <FailurePopup open={failureOpen} message="Form submission failed. Please try again." onClose={handleClose} />
+      <SuccessPopup
+        open={successOpen}
+        message="Form submitted successfully!"
+        onClose={handleClose}
+      />
+      <FailurePopup
+        open={failureOpen}
+        message="Form submission failed. Please try again."
+        onClose={handleClose}
+      />
     </AdminContentPart>
   );
 }
@@ -250,7 +297,6 @@ export default function Socialmedia() {
 const AdminContentPart = styled.div`
   background-color: #f3f3f3;
   padding: 30px 15px;
-  
 `;
 
 const SubmitButton = styled.button`

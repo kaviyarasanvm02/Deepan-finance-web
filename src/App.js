@@ -23,45 +23,46 @@ import Joiner from "./Components/Adminscreen/Joiner";
 import Reviewss from "./Components/Adminscreen/Reviews";
 import Socialmedia from "./Components/Adminscreen/Socialmedia";
 import LandingScreen from "./Components/LandingScreen";
+import ServiceDetails from "./Components/LandingScreen/Serivces/ServiceDetails";
+import CardDetails from "./Components/LandingScreen/Cards/CardDetails";
 
 export default function App() {
-
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
+  const isAdminRoute = pathname.startsWith("/admin");
 
   useEffect(() => {
-    if(pathname !== "/"){
-      window.scrollTo(0,0);
+    if (pathname !== "/") {
+      window.scrollTo(0, 0);
     }
   }, [pathname]);
+
   return (
     <>
+     {!isAdminRoute && <Header />}
       <Routes>
-        {/* Main Site Routes */}
         <Route
           path="/"
           element={
             <>
-              <Header />
-            <LandingScreen/>
-              {/* <LogoSlider /> */}
+              <LandingScreen />
               <Contact />
-              <Footer />  
             </>
           }
         />
+        <Route path="/service/:serviceName" element={<ServiceDetails />} />
+        <Route path="/details/:id" element={<CardDetails />} />
         <Route path="/adminlogin" element={<Loginform />} />
-        {/* Admin Site Routes */}
         <Route path="/admin" element={<Admin />}>
-          {/* Nested routes must use relative paths */}
-          <Route index element={<Instruction/>}/>
+          <Route index element={<Instruction />} />
           <Route path="slider" index element={<Slider />} />
           <Route path="about" element={<Aboutss />} />
           <Route path="card" element={<Cardss />} />
           <Route path="joiner" element={<Joiner />} />
-          <Route path="reviews" element={<Reviewss />} />
+          {/* <Route path="reviews" element={<Reviewss />} /> */}
           <Route path="socialmedia" element={<Socialmedia />} />
         </Route>
       </Routes>
+      {!isAdminRoute && <Footer />}
     </>
   );
 }

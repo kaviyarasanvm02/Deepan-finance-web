@@ -77,7 +77,6 @@ export default function Loginform() {
   );
 }
 
-
 // Styled Components
 const LoginContainer = styled.div`
   display: flex;

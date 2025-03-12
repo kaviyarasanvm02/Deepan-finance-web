@@ -44,13 +44,13 @@ const Admin = () => {
   const isAuthenticated = useMemo(() => {
     const token = cookies.get("user")?.userId;
     return Boolean(token);
-  },[]);
+  }, []);
 
   const allowMethod = () => {
     const token = cookies.get("user")?.userId;
-    console.log("tokenn",token);
-    
-    if(!token) {
+    console.log("tokenn", token);
+
+    if (!token) {
       navigate("/adminlogin");
     }
   };
@@ -67,9 +67,9 @@ const Admin = () => {
     setAnchorEl(null);
   };
 
-  useEffect(()=> {
+  useEffect(() => {
     allowMethod();
-  },[]);
+  }, []);
 
   const drawerContent = (
     <Mobileadmin>
@@ -130,14 +130,14 @@ const Admin = () => {
             <ListItemText primary="Social Media" />
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
+        {/* <ListItem disablePadding>
           <ListItemButton component={Link} to="/admin/reviews">
             <ListItemIcon className="icon">
               <MdOutlinePreview />
             </ListItemIcon>
             <ListItemText primary="Reviews" />
           </ListItemButton>
-        </ListItem>
+        </ListItem> */}
       </List>
       <Divider />
     </Mobileadmin>
@@ -146,108 +146,108 @@ const Admin = () => {
   return (
     <Adminpage>
       {isAuthenticated ? (
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          sx={{
-            width: isMobile ? "100%" : `calc(100% - ${drawerWidth}px)`,
-            ml: isMobile ? 0 : `${drawerWidth}px`,
-            background: "#0c1035",
-          }}
-        >
-          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            {isMobile && (
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-              >
-                <MenuIcon />
-              </IconButton>
-            )}
-            <Typography variant="h6" noWrap component="div">
-              Admin Panel
-            </Typography>
-            <div>
-              <IconButton onClick={handleMenuOpen} sx={{ p: 0 }}>
-                <Avatar sx={{ bgcolor: "rgb(225, 35, 35)" }}>A</Avatar>
-              </IconButton>
-              <Menu
-                sx={{ top: "45px;" }}
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-              >
-                <MenuItem disabled>
-                  <Typography
-                    variant="body1"
-                    sx={{ fontWeight: "bold", opacity: "1" }}
-                  >
-                    Admin
-                  </Typography>
-                </MenuItem>
-                <MenuItem>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: "#0c1035", opacity: "1" }}
-                  >
-                    admin@gmail.com
-                  </Typography>
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={handleMenuClose}>
-                  <Link
-                    to="/"
-                    style={{ textDecoration: "none", color: "#fa0001" }}
-                  >
-                    <FaSignOutAlt style={{ marginRight: "8px" }} />
-                    Logout
-                  </Link>
-                </MenuItem>
-              </Menu>
-            </div>
-          </Toolbar>
-        </AppBar>
-
-        <nav aria-label="admin drawer">
-          <Drawer
-            variant={isMobile ? "temporary" : "permanent"}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true,
-            }}
+        <Box sx={{ display: "flex" }}>
+          <CssBaseline />
+          <AppBar
+            position="fixed"
             sx={{
-              width: drawerWidth,
-              flexShrink: 0,
-              "& .MuiDrawer-paper": {
-                width: drawerWidth,
-                boxSizing: "border-box",
-                background: "#0c1035",
-                color: "#fff",
-              },
+              width: isMobile ? "100%" : `calc(100% - ${drawerWidth}px)`,
+              ml: isMobile ? 0 : `${drawerWidth}px`,
+              background: "#0c1035",
             }}
           >
-            {drawerContent}
-          </Drawer>
-        </nav>
+            <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+              {isMobile && (
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={handleDrawerToggle}
+                >
+                  <MenuIcon />
+                </IconButton>
+              )}
+              <Typography variant="h6" noWrap component="div">
+                Admin Panel
+              </Typography>
+              <div>
+                <IconButton onClick={handleMenuOpen} sx={{ p: 0 }}>
+                  <Avatar sx={{ bgcolor: "rgb(225, 35, 35)" }}>A</Avatar>
+                </IconButton>
+                <Menu
+                  sx={{ top: "45px;" }}
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                >
+                  <MenuItem disabled>
+                    <Typography
+                      variant="body1"
+                      sx={{ fontWeight: "bold", opacity: "1" }}
+                    >
+                      Admin
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "#0c1035", opacity: "1" }}
+                    >
+                      admin@gmail.com
+                    </Typography>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem onClick={handleMenuClose}>
+                    <Link
+                      to="/"
+                      style={{ textDecoration: "none", color: "#fa0001" }}
+                    >
+                      <FaSignOutAlt style={{ marginRight: "8px" }} />
+                      Logout
+                    </Link>
+                  </MenuItem>
+                </Menu>
+              </div>
+            </Toolbar>
+          </AppBar>
 
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <Toolbar />
-          <Outlet />
+          <nav aria-label="admin drawer">
+            <Drawer
+              variant={isMobile ? "temporary" : "permanent"}
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              ModalProps={{
+                keepMounted: true,
+              }}
+              sx={{
+                width: drawerWidth,
+                flexShrink: 0,
+                "& .MuiDrawer-paper": {
+                  width: drawerWidth,
+                  boxSizing: "border-box",
+                  background: "#0c1035",
+                  color: "#fff",
+                },
+              }}
+            >
+              {drawerContent}
+            </Drawer>
+          </nav>
+
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Toolbar />
+            <Outlet />
+          </Box>
         </Box>
-      </Box>
-       ) : null}
+      ) : null}
     </Adminpage>
   );
 };

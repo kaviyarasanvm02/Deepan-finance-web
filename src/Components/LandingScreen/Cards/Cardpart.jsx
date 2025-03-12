@@ -1,71 +1,99 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Container, Row, Col } from 'react-bootstrap';
-import Carousel from 'react-bootstrap/Carousel';
-import Cards from './Cards';
+import React from "react";
+import styled from "styled-components";
+import { Grid, Container, Typography } from "@mui/material";
+import Cards from "./Cards";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import backImage from "../../../assets/top-view-piggy-bank-money.jpg";
 
 export default function Cardpart({ data }) {
-  // Group data into chunks of 3 for the carousel
-  const chunkedData = [];
-  for (let i = 0; i < data.length; i += 3) {
-    chunkedData.push(data.slice(i, i + 3));
-  }
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: true,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   return (
-    <Maindiv id="card">
-      <Container>
-        <Row>
-          <Col md={12}>
-            <Heading>Investor Relations</Heading>
-          </Col>
-        </Row>
-        <Carousel>
-          {chunkedData.map((chunk, i) => (
-            <Carousel.Item key={i}>
-              <Row>
-                {chunk.map((e, index) => (
-                  <Col sm={12} xs={12} md={4} lg={4} xl={4} key={index}>
-                    <a href="#">
-                      <Cards e={e} />
-                    </a>
-                  </Col>
-                ))}
-              </Row>
-            </Carousel.Item>
+    <Maindiv id="card" image={backImage}>
+      <Container maxWidth="xl">
+        <Typography  sx={{ padding: "40px",
+          textAlign: "center",
+          fontWeight: 900,
+          color: "black",
+          fontSize: "50px",
+          "@media (max-width: 600px)": {
+            fontSize: "26px",
+          },}}>
+          Investor Relations
+        </Typography>
+        <Slider {...settings}>
+          {data.map((e, index) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+              <Cards e={e} />
+            </Grid>
           ))}
-        </Carousel>
+        </Slider>
       </Container>
     </Maindiv>
   );
 }
 
 const Maindiv = styled.section`
-  padding: 80px 0;
+  padding: 50px 0;
+  background-image: ${({ image }) => `url(${image})`};
+  background-size: cover;
+  background-position: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 
   @media screen and (max-width: 600px) {
     padding: 40px 0;
   }
 
-  .carousel-control-prev,
-  .carousel-control-next {
-    opacity: 1; /* Ensure controls are visible */
+  .slick-prev,
+  .slick-next {
+    z-index: 1;
   }
 
-  .carousel-indicators {
-    bottom: -55px;
-    z-index: 10; 
-    //  background-color: #d1d3d4;
+  .slick-dots {
+    bottom: -30px;
   }
 
-  .carousel-indicators [data-bs-target] {
-    width: 40px;
-    height: 6px;
-    background-color: #034EA2;
+  .slick-dots li button:before {
+    font-size: 12px;
+    color: rgba(28, 10, 48, 0.12);
+  }
+  .slick-prev:before{
+    color: rgba(28, 10, 48, 0.12);
+    font-size: 30px;
+  }
+  .slick-next:before{
+    color: rgba(28, 10, 48, 0.12);
+    font-size: 30px;
   }
 `;
 
-const Heading = styled.h1`
-  padding: 10px 0;
-  font-size: 36px;
-  font-weight: 900;
-`;
+

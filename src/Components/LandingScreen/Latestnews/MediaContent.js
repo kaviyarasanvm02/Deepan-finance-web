@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Typography, Grid } from '@mui/material';
-import styled from 'styled-components';
-import { Url } from '../../../utils/api';
+import React, { useState, useEffect } from "react";
+import { Box, Typography, Grid } from "@mui/material";
+import styled from "styled-components";
+import { Url } from "../../../utils/api";
+import backImage from "../../../assets/top-view-piggy-bank-money.jpg";
 
 const MediaContent = ({ data }) => {
   const caseStudyData = data?.caseStudyData || [];
@@ -43,61 +44,60 @@ const MediaContent = ({ data }) => {
   };
 
   return (
-    <StyledSection id='media'>
+    <StyledSection id="media" image={backImage}>
       <Typography
         sx={{
-          fontSize: '2.5rem',
-          fontWeight: '800',
-          color: '#231f20',
-          fontFamily: 'Nunito Sans',
-          textAlign: 'center',
-          marginBottom: '40px',
-          '@media (max-width: 600px)': {
-            fontSize: '1.8rem',
+          fontSize: "50px",
+          fontWeight: "900",
+          color: "#231f20",
+          textAlign: "center",
+          marginBottom: "40px",
+          "@media (max-width: 600px)": {
+            fontSize: "26px",
           },
         }}
       >
-        Finance leaders trust us
+        Finance Leaders Trust Us
       </Typography>
 
-      <Box sx={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <Box sx={{ maxWidth: "1200px", margin: "0 auto" }}>
         {caseStudyData.map((item, index) => (
           <SlideContainer
             key={index}
-            style={{ display: index === slideIndex ? 'block' : 'none' }}
+            style={{ display: index === slideIndex ? "block" : "none" }}
           >
             <Grid container spacing={3} alignItems="center">
               <Grid item xs={12} md={6}>
                 <LeftBorderContainer>
                   <Typography
                     sx={{
-                      fontSize: '0.9rem',
-                      fontWeight: '500',
-                      color: '#fa0001',
-                      textTransform: 'uppercase',
-                      fontFamily: 'Nunito Sans',
-                      marginBottom: '8px',
+                      fontSize: "0.9rem",
+                      fontWeight: "500",
+                      color: "#fa0001",
+                      textTransform: "uppercase",
+                      fontFamily: "Nunito Sans",
+                      marginBottom: "8px",
                     }}
                   >
                     {item.subTitle}
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: '1.8rem',
-                      fontWeight: 'bold',
-                      color: '#231f20',
-                      fontFamily: 'Nunito Sans',
-                      marginBottom: '16px',
+                      fontSize: "1.8rem",
+                      fontWeight: "bold",
+                      color: "#231f20",
+                      fontFamily: "Nunito Sans",
+                      marginBottom: "16px",
                     }}
                   >
                     {item.title}
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: '1rem',
-                      color: '#666',
-                      fontFamily: 'Nunito Sans',
-                      marginBottom: '24px',
+                      fontSize: "1rem",
+                      color: "#666",
+                      fontFamily: "Nunito Sans",
+                      marginBottom: "24px",
                     }}
                   >
                     {item.description}
@@ -131,7 +131,7 @@ const MediaContent = ({ data }) => {
               key={index}
               onClick={() => handleProgressClick(index)}
               active={index === slideIndex}
-              progress={index === slideIndex ? `${value}%` : '0%'}
+              progress={index === slideIndex ? `${value}%` : "0%"}
             />
           ))}
         </ProgressContainer>
@@ -145,7 +145,12 @@ export default MediaContent;
 // Styled Components
 const StyledSection = styled.section`
   padding: 60px 20px;
-  background-color: #ffffff;
+  background-image: ${({ image }) => `url(${image})`};
+  background-size: cover;
+  background-position: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   overflow: hidden;
 
   @media screen and (max-width: 600px) {
@@ -213,13 +218,13 @@ const ProgressBar = styled.div`
   overflow: hidden;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     width: ${(props) => props.progress};
-    background-color: ${(props) => (props.active ? '#034EA2' : 'transparent')};
+    background-color: ${(props) => (props.active ? "#034EA2" : "transparent")};
     transition: width 0.05s linear;
   }
 `;

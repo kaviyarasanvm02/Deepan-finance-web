@@ -1,139 +1,207 @@
-import { Box, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { IoArrowForwardSharp } from "react-icons/io5";
-import styled from "styled-components";
-import { BaseUrl, Url } from "../../../utils/api";
+import styled, { keyframes } from "styled-components";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import { Box, IconButton, Button, Typography } from "@mui/material";
+import { Url } from "../../../utils/api";
 
-export const SlideShowBar = ({ data }) => {
-  const image = data?.[0]?.image || ''; 
-  const { subTitle, title, description, button_name } = data[0] || {}; 
-  console.log(image)
+export const SlideShowBar = ({ data = [] }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [showButton, setShowButton] = useState(false);
+  const [hover, setHover] = useState(false);
+
+  // Get current slide data safely
+  const currentSlide = data[currentIndex] || {};
+  const { subTitle = "", title = "", description = "", button_name = "", image = "" } = currentSlide;
+
+  // Function to navigate slides
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? data.length - 1 : prevIndex - 1));
+  };
+
+  // Handle text animation effect
+  useEffect(() => {
+    let text = currentSlide.title || "";
+    setDisplayText("");
+    setShowButton(false);
+
+    const buttonTimer = setTimeout(() => {
+      setShowButton(true);
+    }, 300);
+
+    const textTimer = setTimeout(() => {
+      text.split("").forEach((char, index) => {
+        setTimeout(() => {
+          setDisplayText((prev) => prev + char);
+        }, index * 100);
+      });
+    }, 1000);
+
+    return () => {
+      clearTimeout(buttonTimer);
+      clearTimeout(textTimer);
+    };
+  }, [currentIndex, data]);
+
+  // Auto slide every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [currentIndex, data]);
+
   return (
-    <Slidersec>
-      <Slidersecinner />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          height: "100vh",
-          position: "relative",
-        }}
-      >
-      
-          <div
-            style={{
-              width: "100%",
-              height: "100vh",
-              position: "relative",
-            }}
-          >
-            <img
-               src={`${Url}${image}`}
-              alt="slide"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
-              }}
-            />
-            <Box
-              sx={{
-                position: "absolute",
-                top: "20%",
-                left: "15%",
-                right: "15%",
-                color: "white",
-                textAlign: "left",
-                zIndex: 1,
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: "18px",
-                  fontWeight: "bold",
-                  mb: 1,
-                  zIndex: 1,
-                  "@media (max-width: 600px)": {
-                    fontSize: "12px",
-                  },
-                }}
-              >
-                {subTitle}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "46px",
-                  fontWeight: "bold",
-                  mb: 1,
-                  "@media (max-width: 600px)": {
-                    fontSize: "18px",
-                  },
-                }}
-                dangerouslySetInnerHTML={{ __html: title }}
-              />
-              <Typography
-                sx={{
-                  fontSize: "20px",
-                  maxWidth: "800px",
-                  zIndex: 1,
-                  "@media (max-width: 600px)": {
-                    fontSize: "16px",
-                  },
-                  mb: 2,
-                }}
-                dangerouslySetInnerHTML={{
-                  __html: description,
-                }}
-              />
-              <Box
-                sx={{
-                  cursor: "pointer",
-                  mt: 2,
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{
-                    color: "#ffffff",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    zIndex: 1,
-                    mr: 1,
-                    "@media (max-width: 600px)": {
-                      fontSize: "12px",
-                    },
-                  }}
-                >
-                  {button_name}
-                </Typography>
-                <IoArrowForwardSharp
-                  style={{
-                    color: "#ffffff",
-                    fontSize: "16px",
-                  }}
-                />
-              </Box>
-            </Box>
-          </div>
-      
-      </Box>
-    </Slidersec>
+    <MainBox
+      image={`${Url}${image}`}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      {/* Slide Content */}
+      <ContentBox>
+        <Typography variant="h6" className="subTitle">
+          {subTitle}
+        </Typography>
+        <Typography className="title" dangerouslySetInnerHTML={{ __html: title }} />
+        <Typography className="description" dangerouslySetInnerHTML={{ __html: description }} />
+        <Button
+          variant="contained"
+          className="ctaButton"
+          endIcon={<IoArrowForwardSharp className="arrowIcon" />}
+        >
+          {button_name}
+        </Button>
+      </ContentBox>
+
+      {/* Navigation Arrows */}
+      {hover && (
+        <NavControls>
+          <IconButton className="navButton" onClick={prevSlide}>
+            <ArrowBackIos />
+          </IconButton>
+          <IconButton className="navButton" onClick={nextSlide}>
+            <ArrowForwardIos />
+          </IconButton>
+        </NavControls>
+      )}
+    </MainBox>
   );
 };
 
-const Slidersec = styled.section`
-  position: relative;
-  z-index: 0; /* Ensure this is not negative */
+// Styled Components
+
+const slideIn = keyframes`
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
 `;
 
-const Slidersecinner = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
+const MainBox = styled(Box)`
+  position: relative;
   width: 100%;
-  height: 100vh;
-  z-index: 1; /* Keeps the gradient background behind other content */
-  background: linear-gradient(90deg, rgb(0 0 0 / 97%) 1%, rgb(0 0 0 / 0%) 96%);
+  height: 600px;
+  background-image: ${({ image }) => `url(${image})`};
+  background-size: cover;
+  background-position: center;
+  animation: ${slideIn} 0.8s ease-in-out;
+
+  @media (max-width: 900px) {
+    height: 300px;
+  }
 `;
+
+const ContentBox = styled(Box)`
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  right: 15%;
+  color: white;
+  text-align: left;
+  z-index: 1;
+
+  .subTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    
+    @media (max-width: 600px) {
+      font-size: 12px;
+    }
+  }
+
+  .title {
+    font-size: 66px;
+    font-weight: 900;
+    margin-bottom: 8px;
+
+    @media (max-width: 600px) {
+      font-size: 24px;
+    }
+  }
+
+  .description {
+    font-size: 20px;
+    max-width: 800px;
+    margin-bottom: 16px;
+
+    @media (max-width: 600px) {
+      font-size: 16px;
+    }
+  }
+
+  .ctaButton {
+    padding: 10px 50px;
+    background-color: #95151A;
+    text-transform: none;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 1;
+    margin-top: 8px;
+
+    @media (max-width: 600px) {
+      font-size: 12px;
+      padding: 6px 20px;
+    }
+  }
+
+  .arrowIcon {
+    color: white;
+    font-size: 16px;
+  }
+`;
+
+const NavControls = styled(Box)`
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  align-items: center;
+  padding: 0 20px;
+
+  .navButton {
+    border-radius: 50px;
+    padding: 16px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .navButton {
+      padding: 12px;
+    }
+  }
+`;
+
+export default SlideShowBar;

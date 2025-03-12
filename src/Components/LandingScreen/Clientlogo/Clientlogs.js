@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { Container, Row,Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 // Keyframes for sliding animation
 const slides = keyframes`
   from {
@@ -22,19 +22,27 @@ const LogosContainer = styled.div`
 const LogosGradient = styled.div`
   position: absolute;
   top: 0;
-  content: '';
+  content: "";
   width: 250px;
   height: 100%;
   z-index: 2;
 
   &:before {
     left: 0;
-    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0),
+      rgb(255, 255, 255)
+    );
   }
 
   &:after {
     right: 0;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0),
+      rgb(255, 255, 255)
+    );
   }
 `;
 
@@ -53,34 +61,34 @@ const LogoImage = styled.img`
 const Mysec = styled.section`
   padding: 50px 0;
   background-color: #f9f9f9;
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 600px) {
     padding: 40px 0;
   }
 `;
 
 const LogoSlider = () => {
   return (
-      <Mysec>
-          <Container>
-              <Row>
-                  <Col md={12}>
-                  <LogosContainer>
-                      <LogosGradient />
-                      <LogoItems>
-                        {[...Array(24)].map((_, index) => (
-                          <LogoImage
-                            key={index}
-                            src="https://navneetdwivedi.github.io/Logo_Slider/logo.png"
-                            alt={`Logo ${index + 1}`}
-                          />
-                        ))}
-                      </LogoItems>
-                      <LogosGradient />
-                    </LogosContainer>
-                  </Col>
-              </Row>
-          </Container>
-      </Mysec>
+    <Mysec>
+      <Container>
+        <Row>
+          <Col md={12}>
+            <LogosContainer>
+              <LogosGradient />
+              <LogoItems>
+                {[...Array(24)].map((_, index) => (
+                  <LogoImage
+                    key={index}
+                    src="https://navneetdwivedi.github.io/Logo_Slider/logo.png"
+                    alt={`Logo ${index + 1}`}
+                  />
+                ))}
+              </LogoItems>
+              <LogosGradient />
+            </LogosContainer>
+          </Col>
+        </Row>
+      </Container>
+    </Mysec>
   );
 };
 

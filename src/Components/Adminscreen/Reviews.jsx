@@ -30,7 +30,10 @@ export default function Reviews() {
         setReviewDetailsData([]);
       }
     } catch (error) {
-      console.error("Error fetching review data:", error.response?.data || error.message);
+      console.error(
+        "Error fetching review data:",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -42,7 +45,10 @@ export default function Reviews() {
       setSuccessOpen(true);
       setCardOpen(false);
     } catch (error) {
-      console.error("Error creating review:", error.response?.data || error.message);
+      console.error(
+        "Error creating review:",
+        error.response?.data || error.message
+      );
       setFailureOpen(true);
     }
   };
@@ -55,7 +61,10 @@ export default function Reviews() {
       setSuccessOpen(true);
       setCardOpen(false);
     } catch (error) {
-      console.error("Error updating review:", error.response?.data || error.message);
+      console.error(
+        "Error updating review:",
+        error.response?.data || error.message
+      );
       setFailureOpen(true);
     }
   };
@@ -129,7 +138,12 @@ export default function Reviews() {
           Add Review
         </Button>
       </Box>
-      <Dialog open={cardOpen} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+      <Dialog
+        open={cardOpen}
+        onClose={handleCloseDialog}
+        maxWidth="sm"
+        fullWidth
+      >
         <Box sx={{ padding: 3 }}>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
@@ -175,27 +189,35 @@ export default function Reviews() {
         </Box>
       </Dialog>
       <Grid container spacing={4} sx={{ marginTop: 2 }}>
-  {reviewDetailsData.map((review) => (
-    <Grid item xs={12} sm={6} md={4} lg={3} key={review.id}>
-      <StyledCard>
-        <StyledCardBody>
-          <Card.Title>{review.title}</Card.Title>
-          <Card.Subtitle>{review.subTitle}</Card.Subtitle>
-          <Card.Text>{review.description}</Card.Text>
-          <Editbtn
-            aria-label="Edit Review"
-            onClick={() => handleOpenEditModal(review.id)}
-          >
-            <MdEdit />
-          </Editbtn>
-        </StyledCardBody>
-      </StyledCard>
-    </Grid>
-  ))}
-</Grid>
+        {reviewDetailsData.map((review) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={review.id}>
+            <StyledCard>
+              <StyledCardBody>
+                <Card.Title>{review.title}</Card.Title>
+                <Card.Subtitle>{review.subTitle}</Card.Subtitle>
+                <Card.Text>{review.description}</Card.Text>
+                <Editbtn
+                  aria-label="Edit Review"
+                  onClick={() => handleOpenEditModal(review.id)}
+                >
+                  <MdEdit />
+                </Editbtn>
+              </StyledCardBody>
+            </StyledCard>
+          </Grid>
+        ))}
+      </Grid>
 
-      <SuccessPopup open={successOpen} message="Form submitted successfully!" onClose={handleClose} />
-      <FailurePopup open={failureOpen} message="Form submission failed. Please try again." onClose={handleClose} />
+      <SuccessPopup
+        open={successOpen}
+        message="Form submitted successfully!"
+        onClose={handleClose}
+      />
+      <FailurePopup
+        open={failureOpen}
+        message="Form submission failed. Please try again."
+        onClose={handleClose}
+      />
     </AdminContentPart>
   );
 }

@@ -1,78 +1,97 @@
-import React from 'react'
-import styled from 'styled-components'
-import Card from 'react-bootstrap/Card';
-import { Url } from '../../../utils/api';
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
+import { Url } from "../../../utils/api";
+import { Divider } from "@mui/material";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import { useNavigate } from "react-router-dom";
+
+// Styled Components (Optional)
+const StyledCard = styled(Card)(({ theme }) => ({
+  maxWidth: 345,
+  margin: "15px auto",
+  transition: "transform 0.3s ease-in-out",
+  "&:hover": {
+    transform: "scale(1.02)",
+  },
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: "100%",
+  },
+}));
+
 export default function Cards({ e }) {
-  // const image = Url || e?.image || "";
-  const { description, subTitle, title } = e || {};
-  console.log(e)
+  const { description, subTitle, title, image } = e || {};
+  const navigate = useNavigate();
+  const imageSrc =
+    typeof e?.image === "object"
+      ? URL.createObjectURL(e.image)
+      : e?.image
+        ? `${Url}${e.image}`
+        : "/static/images/cards/contemplative-reptile.jpg";
+
+  const handleReadMore = () => {
+    navigate(`/details/${e?.id || "default"}`);
+  };
+
   return (
-    <Mycard>
-      <Card >
-        <CardImg>
-          <img className='cardimg' src={typeof e?.image === "object"
-            ? URL.createObjectURL(e.image)
-            : Url + e.image} />
-        </CardImg>
-        <Card.Body className='card-bordy'>
-          <Card.Title>{subTitle}</Card.Title>
-          <Card.Text className='text'>
-            {description}
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    </Mycard>
-  )
+    <StyledCard>
+      <CardMedia
+        component="img"
+        height="180"
+        image={imageSrc}
+        alt={title || "Card Image"}
+        sx={{
+          objectFit: "cover",
+        }}
+      />
+      <CardContent>
+        <Typography sx={{ fontSize: "26px", fontWeight: 600, color: "black" }}>
+          {subTitle || "Default Title"}
+        </Typography>
+        {/* <StyledDivider /> */}
+        <Typography
+          sx={{
+            fontSize: "16px",
+            fontWeight: 400,
+            color: "rgba(78, 75, 75, 0.6)",
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 4,
+            overflow: "hidden",
+          }}
+        >
+          {description || "No description available."}
+        </Typography>
+      </CardContent>
+      <StyledDivider />
+      <CardActions>
+        <Button
+          size="small"
+          sx={{
+            textTransform: "none",
+            color: "rgba(58, 57, 59, 0.7)",
+            fontWeight: 500,
+            "&:hover": { color: "rgba(58, 57, 59, 1)" },
+          }}
+          endIcon={<ArrowRightAltIcon />}
+          onClick={handleReadMore}
+        >
+          Read More
+        </Button>
+      </CardActions>
+    </StyledCard>
+  );
 }
 
-
-const Mycard = styled.div`
- margin: 15px 0;
-
-  Img{
-    height: 250px;
-  }
- .card-bordy
- {position: relative;
-  padding: 20px;
-  background-color: #fff;
-  height: 200px;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 5px; /* Adjust the height of the "border" */
-    background: linear-gradient(90deg, rgba(250,0,1,1) 1%, rgba(0,0,0,0.7147233893557423) 54%, rgba(7,49,159,1) 97%);
-  }
-   .text{
-    font-weight: 900;
-    font-size: 26px;
-
-       @media screen and (max-width: 600px) {
-  font-size: 22px ;
-
-} 
-
-      @media (min-width: 768px) and (max-width: 1024px) {
-  font-size: 16px ;
-
-} 
- `;
-const CardImg = styled.div`
-    position: relative;
-    overflow: hidden;
-    transition: 0.6s ease-in-out;
-   
-    .cardimg{
-        transform: scale(1.1);
-        transition: all 0.5s ease-in-out;
-         width: 100%;
-        
-    }
-    &:hover .cardimg{
-         transform: scale(1.2);
-    }    
- `; 
+const StyledDivider = styled(Divider)`
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(50, 8, 99, 0.12);
+  background-color: rgba(50, 8, 99, 0.12);
+  width: 100%;
+`;

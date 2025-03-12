@@ -1,79 +1,123 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
-import { Container, Row, Col } from "react-bootstrap";
+import aboutImg from "../../../assets/about-us_24.png";
 
-export const About = ({data }) => {
-  const {title,description} = data[0] || {};
- 
+export const About = ({ data }) => {
+  const { title, description } = data[0] || {};
+
   return (
-    <Maindiv id="About">
-        <Container>
-        <Row>
-            <Col md={12}>
-                    <Box
-              sx={{
-                display: "flex",
-                fontFamily: "Nunito Sans", 
-                flexDirection: "column",
-                alignItems: "center",
-                position: "relative",
-                padding: "20px",
-              }}
-            >
-              {data.map((index, key) => (
-                <Grid
-                  key={key}
-                  direction="column"
+    <MainBox>
+      <ContentBox>
+        <InsideBox>
+          <Grid container spacing={10} alignItems="center">
+            {/* Text Column */}
+            <Grid item xs={12} md={6}>
+              <TextBox>
+                <Typography
                   sx={{
-                    maxWidth: "1200px", 
+                    fontSize: { xs: "32px", md: "40px" },
+                    fontWeight: 900,
+                    color: "white",
+                    textAlign: "left",
                   }}
                 >
-                  <Typography
-                    sx={{
-                      fontSize: "30px",
-                      fontFamily: "Nunito Sans", 
-                      fontWeight: "900",
-                      color: "#231f20",
-                      margin: " 10px 0",
-                      textAlign:"left",
-                      '@media (max-width: 600px)': {
-                        fontSize: "19px",
-                      },
-                    }}
-                  >
-                    {title || "Title not found"}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "20px",
-                      fontFamily: "Nunito Sans", 
-                      color: "#000000", 
-                      '@media (max-width: 600px)': {
-                        fontSize: "14px",
-                        textAlign: "justify",
-                      },
-                    }}
-                  >
-                    {description || "Description not found"}
-                  </Typography>
-                </Grid>
-              ))}
-            </Box>
-            </Col>
-        </Row>
-        </Container>
-    </Maindiv>
+                  About Us
+                </Typography>
+                <StyledDivider />
+                <Typography
+                  sx={{
+                    fontSize: { xs: "18px", md: "20px" },
+                    fontWeight: 600,
+                    color: "white",
+                    textAlign: "left",
+                    marginTop: "20px",
+                  }}
+                >
+                  {title || "Title not found"}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "14px", md: "16px" },
+                    fontWeight: 400,
+                    color: "white",
+                    textAlign: "left",
+                  }}
+                >
+                  {description || "Description not found"}
+                </Typography>
+              </TextBox>
+            </Grid>
+
+            {/* Image Column (Hidden on extra small screens) */}
+            <Grid item xs={12} md={6}>
+              <ImageBox>
+                <StyledImage src={aboutImg} alt="About Us" />
+              </ImageBox>
+            </Grid>
+          </Grid>
+        </InsideBox>
+      </ContentBox>
+    </MainBox>
   );
 };
 
+/* Styled Components */
+const MainBox = styled(Box)`
+  position: relative;
+  width: 100%;
+  height: auto;
+  background-color: #23395d;
+`;
 
+const ContentBox = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
 
-const Maindiv = styled.section`
-  padding: 75px 0;
-
-  @media screen and (max-width: 600px){
-    padding: 40px 0;
+  @media (max-width: 900px) {
+    padding: 40px 20px;
   }
+`;
 
+const InsideBox = styled(Box)`
+  display: flex;
+  justify-content: center;
+`;
+
+const TextBox = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  color: white;
+`;
+
+const StyledDivider = styled(Divider)`
+  background-color: white;
+  height: 6px;
+  margin: 50px 0;
+  width: 200px;
+`;
+
+const ImageBox = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+
+  @media (min-width: 600px) {
+    margin-top: 0;
+  }
+`;
+
+const StyledImage = styled.img`
+  width: 100%;
+  height: 500px; 
+  /* object-fit: cover; */
+
+  @media (max-width: 600px) {
+    height: auto; 
+  }
 `;
