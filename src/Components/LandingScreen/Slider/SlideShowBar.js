@@ -3,9 +3,12 @@ import { IoArrowForwardSharp } from "react-icons/io5";
 import styled, { keyframes } from "styled-components";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { Box, IconButton, Button, Typography } from "@mui/material";
+import backgroundImage from "../../../assets/close-up-coin-jar-with-tree.jpg";
 import { Url } from "../../../utils/api";
+import Link from '@mui/material/Link';
 
 export const SlideShowBar = ({ data = [] }) => {
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [showButton, setShowButton] = useState(false);
@@ -59,24 +62,26 @@ export const SlideShowBar = ({ data = [] }) => {
 
   return (
     <MainBox
-      image={`${Url}${image}`}
+      image={`${Url}${image || backgroundImage}`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
       {/* Slide Content */}
       <ContentBox>
         <Typography variant="h6" className="subTitle">
-          {subTitle}
+          {subTitle || "Your Trusted Wealth Creation Partner"}
         </Typography>
-        <Typography className="title" dangerouslySetInnerHTML={{ __html: title }} />
-        <Typography className="description" dangerouslySetInnerHTML={{ __html: description }} />
+        <Typography className="title" dangerouslySetInnerHTML={{ __html: title || "Dream Rich! Dare to Reach!"}} />
+        <Typography className="description" dangerouslySetInnerHTML={{ __html: description  || "Everything for Everyone!"}} />
+        <Link href="#contact" passHref>
         <Button
           variant="contained"
           className="ctaButton"
           endIcon={<IoArrowForwardSharp className="arrowIcon" />}
         >
-          {button_name}
+          {button_name || "Get Started"}
         </Button>
+        </Link>
       </ContentBox>
 
       {/* Navigation Arrows */}
@@ -125,9 +130,10 @@ const ContentBox = styled(Box)`
   z-index: 1;
 
   .subTitle {
-    font-size: 18px;
+    font-size: 30px;
     font-weight: bold;
     margin-bottom: 8px;
+    color:rgb(5, 4, 59);
     
     @media (max-width: 600px) {
       font-size: 12px;
@@ -135,20 +141,20 @@ const ContentBox = styled(Box)`
   }
 
   .title {
-    font-size: 66px;
+    font-size: 50px;
     font-weight: 900;
     margin-bottom: 8px;
-
+    color:rgb(5, 4, 59);
     @media (max-width: 600px) {
       font-size: 24px;
     }
   }
 
   .description {
-    font-size: 20px;
+    font-size: 24px;
     max-width: 800px;
     margin-bottom: 16px;
-
+    color:rgb(5, 4, 59);
     @media (max-width: 600px) {
       font-size: 16px;
     }
@@ -157,6 +163,9 @@ const ContentBox = styled(Box)`
   .ctaButton {
     padding: 10px 50px;
     background-color: #95151A;
+    &:hover{
+      background-color:rgb(5, 4, 59);
+    }
     text-transform: none;
     color: white;
     font-size: 20px;

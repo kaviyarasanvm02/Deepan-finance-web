@@ -7,6 +7,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Tabcontentbox from "./Tabcontentbox";
 import Accordion from "react-bootstrap/Accordion";
 import backImage from "../../../assets/top-view-piggy-bank-money.jpg";
+import { Typography } from "@mui/material";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -31,106 +32,37 @@ function a11yProps(index) {
   };
 }
 
-// Tab labels and content grouped together
 const tabData = [
   {
-    label: "Who We Serve",
+    label: "WISE INVESTOR",
     content: [
-      {
-        title: "Investment Consultancy",
-        description:
-          "Comprehensive wealth management services for individuals and businesses",
-      },
-      {
-        title: "Equities",
-        description:
-          "Short Term Less than 1 year,Medium Term 1 to 5 years,Long Term above 5 years",
-      },
-      {
-        title: "Our team",
-        description:
-          "Our team suggest Right stocks @ Right price @ Right time to optimise return on investments including multi bagger which delivers 500% + returns",
-      },
-      {
-        title: "Mutual funds",
-        description:
-          "Investing every month on chosen funds direct from auto debit from our bank",
-      },
-      {
-        title: "Lumpsum",
-        description:
-          "One time Investment any time when we have surplus funds ,Systematic Withdraw Plan (SWP)",
-      },
-      {
-        title: "Our Team assists",
-        description:
-          "RBI Treasury Bills 90 days /180 days / 364 days @ 6.3% p.a,Corporate Bonds from 8% to 10.5% p.a",
-      },
+      { title: "Basic to Advanced Training – Recorded videos on value investing & smart trading" },
+      { title: "Goal-Based & Time Horizon-Based Recommendations – Mutual funds, stocks, commodities" },
+      { title: "Portfolio Tracker – Manage up to 5 family accounts with 360-degree analysis" },
+      { title: "Robo-Advisor – AI-driven insights on stock trends and future price predictions" },
+      { title: "Accounting Software – Track portfolio performance, auditing, and goal progress" },
+      { title: "Trading Journal Software – Track live trades, verify P&L, and improve trading performance" },
     ],
   },
   {
-    label: "What We Do",
+    label: "SMART TRADER",
     content: [
-      {
-        title: "Full time career opportunities",
-        description: "Swing Trading, Day trading & Option strategies",
-      },
-      {
-        title: "Second Income opportunities",
-        description: "Swing Trading, Day trading & Option strategies",
-      },
-      {
-        title: "Algo Trading Solutions",
-        description: "Semi & Fully automated trading systems",
-      },
+      { title: "All Wise Investor features" },
+      { title: "Advanced Charting Software – Spot profitable short-term investment & trading opportunities" },
+      { title: "Algo Trading Software – Automate BUY/SELL decisions with customized option strategies" },
     ],
   },
   {
-    label: "How We Deliver",
+    label: "AGGRESSIVE WEALTH CREATION",
     content: [
-      {
-        title: "Training",
-        description:
-          "Accelerate impact and build trust with deep industry context",
-      },
-      {
-        title: "Choosing Right stock list",
-        description: "Accelerate impact and build trust with Money",
-      },
-      {
-        title: "Value investing for Wealth ",
-        description:
-          "Grow revenue, enhance customer experience and augment teams with a modern go-to-market model",
-      },
-    ],
-  },
-  {
-    label: "How We Are Different",
-    content: [
-      {
-        title: "Zero Office Expense",
-        description:
-          "No overhead costs—start earning without the need for physical office space.",
-      },
-      {
-        title: "High Revenue Sharing",
-        description:
-          "Maximize your profits with our competitive and rewarding revenue-sharing model.",
-      },
-      {
-        title: "Dedicated Training",
-        description:
-          "We ensure your success with tailored training and full support from industry experts.",
-      },
-      {
-        title: "Marketing & Branding Support",
-        description:
-          "Amplify your reach with our proven marketing strategies and brand resources to boost your visibility.",
-      },
+      { title: "Fully Automated Rule-Based Trading with Proven Backtesting" },
+      { title: "0% Fixed/Upfront Fees" },
+      { title: "Performance-Based Pricing: Pay 20% on profit generated (monthly billing cycle)" },
+      { title: "OR Pay 50% on profits above 18% per year (quarterly billing for 1st year, then monthly)" },
+      { title: "Plan shift allowed once per year" },
     ],
   },
 ];
-
 export default function Tabscontent() {
   const [value, setValue] = React.useState(0);
 
@@ -141,8 +73,27 @@ export default function Tabscontent() {
   return (
     <Maindiv image={backImage}>
       <Container>
+        <Typography
+          sx={{
+            fontSize: { xs: "28px", md: "40px" },
+            color: "#23395d",
+            fontWeight: "900",
+            textAlign: "center",
+            padding:"20px"
+          }}
+        >
+          Our Pricing Plans
+        </Typography>
         <Largescreentabs>
-          <Box sx={{ width: "100%" }}>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Tabs
               value={value}
               onChange={handleChange}
@@ -156,20 +107,20 @@ export default function Tabscontent() {
                   label={tab.label}
                   {...a11yProps(index)}
                   sx={{
-                    border: "1px solid #23395d;",
-                    padding: "10px 30px",
+                    border: "1px solid #23395d",
+                    padding: "5px 50px",
                     margin: "0 10px",
-                    color: " #23395d;",
+                    color: "#23395d",
                     backgroundColor: "transparent",
                     fontSize: "20px",
                     fontWeight: "800",
                     transition: "all 0.5s ease-in-out",
                     "&:hover": {
-                      backgroundColor: " #23395d;",
+                      backgroundColor: "#23395d",
                       color: "#fff",
                     },
                     "&.Mui-selected": {
-                      backgroundColor: " #23395d;",
+                      backgroundColor: "#23395d",
                       color: "#fff",
                     },
                   }}
@@ -185,12 +136,10 @@ export default function Tabscontent() {
                       <Box
                         sx={{
                           padding: "10px",
-                          // backgroundImage:
-                          //   "linear-gradient(to right, white, #23395d)",
                           backgroundColor: "#23395d",
                           margin: "10px",
                           color: "white",
-                          borderRadius:"0px 50px",
+                          borderRadius: "0px 50px",
                           ":hover": {
                             border: "10px solid #23395d",
                             backgroundColor: "white",
@@ -198,10 +147,7 @@ export default function Tabscontent() {
                           },
                         }}
                       >
-                        <Tabcontentbox
-                          title={item.title}
-                          description={item.description}
-                        />
+                        <Tabcontentbox title={item.title} />
                       </Box>
                     </Col>
                   ))}
@@ -223,12 +169,10 @@ export default function Tabscontent() {
                         <Box
                           sx={{
                             padding: "10px",
-                            // backgroundImage:
-                            // "linear-gradient(to left, white, #23395d)",
                             backgroundColor: "#23395d",
                             margin: "10px",
                             color: "white",
-                            borderRadius:"0px 50px",
+                            borderRadius: "0px 50px",
                             ":hover": {
                               border: "10px solid #23395d",
                               backgroundColor: "white",
@@ -236,10 +180,7 @@ export default function Tabscontent() {
                             },
                           }}
                         >
-                          <Tabcontentbox
-                            title={item.title}
-                            description={item.description}
-                          />
+                          <Tabcontentbox title={item.title} />
                         </Box>
                       </Col>
                     ))}
@@ -257,8 +198,6 @@ export default function Tabscontent() {
 const Maindiv = styled.div`
   padding: 85px 0;
   background-image: ${({ image }) => `url(${image})`};
-  background-size: cover;
-  background-position: center;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
