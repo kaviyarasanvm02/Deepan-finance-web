@@ -2,14 +2,6 @@ import React, { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
-/* Home Pages Components */
-import Home from "./Components/LandingScreen/Slider/Slider";
-import LogoSlider from "./Components/LandingScreen/Clientlogo/Clientlogs";
-// import About from "./Components/LandingScreen/About/About";
-import Tabscontent from "./Components/LandingScreen/Tobs/Tabssection";
-// import Joiningpart from "./Components/LandingScreen/Joining/Joiningpart";
-// import MediaContent from "./Components/LandingScreen/Latestnews/MediaContent";
-import Reviews from "./Components/LandingScreen/Review/Reviews";
 import Contact from "./Components/LandingScreen/Formpart/Contact";
 
 /* Admin Site Components */
@@ -20,11 +12,11 @@ import Slider from "./Components/Adminscreen/Slider";
 import Cardss from "./Components/Adminscreen/Card";
 import Aboutss from "./Components/Adminscreen/About";
 import Joiner from "./Components/Adminscreen/Joiner";
-import Reviewss from "./Components/Adminscreen/Reviews";
 import Socialmedia from "./Components/Adminscreen/Socialmedia";
 import LandingScreen from "./Components/LandingScreen";
 import ServiceDetails from "./Components/LandingScreen/Serivces/ServiceDetails";
 import CardDetails from "./Components/LandingScreen/Cards/CardDetails";
+import ScrollToTop from "./Components/Scroll/ScrollToTop";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -38,7 +30,8 @@ export default function App() {
 
   return (
     <>
-     {!isAdminRoute && <Header />}
+      <ScrollToTop />
+      {!isAdminRoute && <Header />}
       <Routes>
         <Route
           path="/"

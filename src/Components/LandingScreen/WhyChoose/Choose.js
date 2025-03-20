@@ -34,24 +34,29 @@ const Choose = () => {
                 <Typography
                   sx={{ fontSize: { xs: "28px", md: "40px" }, color: "black", fontWeight: "900", textAlign: "center" }}
                 >
-                  Why Choose Deepan India
+                  Why Choose <span style={{ color:"#95151A"}}>Deepan </span> <span style={{ color:"#23395d"}}>India</span>
                 </Typography>
                 <Box>
                   {[
-                    "One single destination for your entire financial and investment needs",
-                    "Get your own Personal Investment Coach",
-                    "World class in-house Research Team",
-                    "Get access to FundsIndia Select Funds and Specialized Products"
-                  ].map((text, index) => (
+                    "Zero Management Fees – No hidden charges, making our services cost-effective.",
+                    "Performance-Based Fees – Pay only when your portfolio crosses a predefined profit threshold.  ",
+                    "Strong Track Record – Monitor our past and present performance at any time.  ",
+                    "Transparent and Accessible – A user-friendly platform with clear reporting.",
+                    "Long-Term Wealth Creation Focus – Sustainable investment strategies rather than short-term gains.",
+                    "Technology-Driven Approach – Enhancing investment processes through smart technology."
+                  ].map((text, index) => {
+                    const [highlight, ...rest] = text.split(" – "); 
+                    return (
                     <BlockBox key={index}>
                       <RoundBox>
                         <AdsClickIcon sx={{ fontSize: "24px" }} />
                       </RoundBox>
                       <Typography sx={{ fontSize: "18px", fontWeight: "600" }}>
-                        {text}
+                      <span style={{ color:"#23395d",fontWeight:900}}>{highlight} –</span> {rest.join(" – ")}
                       </Typography>
                     </BlockBox>
-                  ))}
+                    );
+                  })}
                 </Box>
               </LeftBox>
             </Grid>
@@ -116,7 +121,7 @@ const BlockBox = styled(Box)`
   justify-content: flex-start;
   background: linear-gradient(to right, white, #23395d);
   border-radius: 50px;
-  padding: 20px;
+  padding: 10px;
   margin-top: 20px;
   width: 100%;
 

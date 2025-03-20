@@ -11,34 +11,28 @@ import { useNavigate } from "react-router-dom";
 
 const services = [
   {
-    title: "MUTUAL FUNDS",
+    title: "Mutual Funds",
     image: mutualimage,
     icon: iconImage,
     path: "/service/mutual-funds",
   },
   {
-    title: "FIXED DEPOSITS",
+    title: "Fixed Deposits & Bonds",
     image: fixedimage,
     icon: iconImage,
     path: "/service/fixed-deposits",
   },
   {
-    title: "INSURANCE",
+    title: "New Fund Offers (NFOs) & Gold Funds",
     image: insurnanceimage,
     icon: iconImage,
     path: "/service/insurance",
   },
   {
-    title: "LOANS",
+    title: "Portfolio Management Services (PMS) & Alternative Investment Funds (AIFs)",
     image: loanimage,
     icon: iconImage,
     path: "/service/loans",
-  },
-  {
-    title: "PMS",
-    image: pmsimage,
-    icon: iconImage,
-    path: "/service/pms",
   },
 ];
 
@@ -58,7 +52,7 @@ const Services = () => {
           },
         }}
       >
-        Our Services
+     Our Offerings
       </Typography>
 
       <Grid container spacing={4} justifyContent="center" padding={"30px"}>

@@ -10,6 +10,8 @@ import Tabscontent from "./Tobs/Tabssection";
 import Services from "./Serivces/Services";
 import Choose from "./WhyChoose/Choose";
 import Calculator from "./Calculator/Calculator";
+import OurStory from "./story/OurStory";
+import Wealthy from "./WealthHelp/Wealthy";
 
 const LandingScreen = () => {
   const [head, setHead] = useState([]);
@@ -63,6 +65,8 @@ const LandingScreen = () => {
     <>
       <SlideShowBar data={head} />
       <Choose/>
+      <Wealthy/>
+      <OurStory/>
       <About data={AboutUs} />
       <Tabscontent />
       <Services/>
